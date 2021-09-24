@@ -9,7 +9,6 @@ import events from 'events';
 
 import bodyParser from 'body-parser';
 
-import initRoutes from './routers/web.js';
 import initSockets from './sockets/index.js';
 import connectDB from './config/connectDB.js';
 import authSocket from './config/authSocket.js';
@@ -25,7 +24,7 @@ const app = express();
 events.EventEmitter.setMaxListeners(configApp.app.max_event_listeners);
 
 // config connect database
-connectDB();
+connectDB
 
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin:*');
@@ -39,7 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 // init all routers of project
-initRoutes(app);
+
 
 //config server socket
 const httpServer = http.Server(app)
