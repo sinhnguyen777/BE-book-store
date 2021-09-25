@@ -2,7 +2,9 @@ class SiteController {
 
     // [GET] /home
     index(req, res){
-        res.render('home');
+        res.json({
+            name:"test"
+        });
     }
 
     // [GET] /search

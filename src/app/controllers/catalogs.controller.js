@@ -32,6 +32,12 @@ class CatalogsController {
          
      }
 
+    // [POST] /catalogs
+    Create(req,res){
+        res.json(req.body);
+        const cata = new Catalog(req.body);
+        cata.save()
+    }
 
 
 }
