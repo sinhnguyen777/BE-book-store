@@ -4,7 +4,8 @@ const router = express.Router();
 const catalogsController = require('../app/controllers/catalogs.controller');
 
 
-router.use('/', catalogsController.index);
+router.get('/', catalogsController.index);
+router.post('/add', catalogsController.Create);
 
 
 module.exports = router;

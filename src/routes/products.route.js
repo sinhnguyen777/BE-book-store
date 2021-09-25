@@ -5,8 +5,9 @@ const productsController = require('../app/controllers/products.controller');
 
 
 
-router.use('/:slug', productsController.show);
 router.use('/', productsController.index);
+router.post('/add', productsController.Create);
+
 
 
 module.exports = router;
