@@ -23,7 +23,7 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resourse\\views'));
+app.set('views', path.join(__dirname, 'resourse', 'views'));
 
 //Route
 route(app);
