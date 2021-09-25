@@ -3,7 +3,6 @@ const router = express.Router();
 
 const catalogsController = require('../app/controllers/catalogs.controller');
 
-// catalogsController.index
 
 router.use('/', catalogsController.index);
 
