@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 const exphbs  = require('express-handlebars');
 
-const route = require('./routes');
+const route = require('./routes/index.route');
 const db = require('./config/db');
 
 //Conect DB
