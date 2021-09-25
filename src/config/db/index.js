@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 async function connect() {
   try {
@@ -8,9 +8,9 @@ async function connect() {
       useFindAndModify: false,
       useCreateIndex: true
     });
-        console.log("connect successfully");
+      console.log("connect successfully");
     }catch(error){
-        console.log("connect fail");
+      console.log("connect fail");
     }
 }
 
