@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 
 async function connect() {
   try {
-    await mongoose.connect("mongodb://localhost:27017/bookstore",{
+    await mongoose.connect('mongodb+srv://BE-library:12345@cluster0.u9btf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true
+      useUnifiedTopology: true
+     
     });
       console.log("connect successfully");
     }catch(error){
