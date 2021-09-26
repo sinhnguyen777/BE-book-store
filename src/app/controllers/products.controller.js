@@ -14,11 +14,12 @@ class ProductsController {
 
     }
 
-    // [POST] /Product
-    Create(req,res){
-        // res.json(req.body);
+    // [POST] 
+    create(req, res, next) {
         const product = new Product(req.body);
-        product.save()
+        product.save();
+        res.send('Save');
+        
     }
 
 }

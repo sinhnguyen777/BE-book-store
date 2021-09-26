@@ -1,32 +1,32 @@
-const Catalog = require('../models/catalogs.model');
+const Feedback = require('../models/feedback.model');
 
-class CatalogsController {
+class FeedbackController {
 
     // [GET]
     index(req, res){
-        Catalog.find({})
-        .then(catalogs => res.json(catalogs))
+        Feedback.find({})
+        .then(feedback => res.json(feedback))
         .catch(error => next(error));
 
         // res.render('catalogs');
     }
     // [POST] 
     create(req, res, next) {
-        const catalog = new Catalog(req.body);
-        catalog.save();
+        const feedback = new Feedback(req.body);
+        feedback.save();
         res.send('Save');
         
     }
     // [PUT]
     update(req, res, next) {
-       Catalog.updateOne({ _id: req.params.id }, req.body)
+        Feedback.updateOne({ _id: req.params.id }, req.body)
        .then(() => res.send('Update'))
        .catch(error => next(error));
         
     }
     // [DELETE] 
     delete(req, res, next) {
-        Catalog.deleteOne({ _id: req.params.id })
+        Feedback.deleteOne({ _id: req.params.id })
         .then(() => res.send('Delete'))
         .catch(error => next(error));
          
@@ -35,4 +35,4 @@ class CatalogsController {
 
 }
 
-module.exports = new CatalogsController;
+module.exports = new FeedbackController;

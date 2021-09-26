@@ -1,32 +1,32 @@
-const Catalog = require('../models/catalogs.model');
+const DiscountCode = require('../models/discountCode.model');
 
-class CatalogsController {
+class DiscountCodeController {
 
     // [GET]
     index(req, res){
-        Catalog.find({})
-        .then(catalogs => res.json(catalogs))
+        DiscountCode.find({})
+        .then(discountCodes => res.json(discountCodes))
         .catch(error => next(error));
 
         // res.render('catalogs');
     }
     // [POST] 
     create(req, res, next) {
-        const catalog = new Catalog(req.body);
-        catalog.save();
+        const discountCode = new DiscountCode(req.body);
+        discountCode.save();
         res.send('Save');
         
     }
     // [PUT]
     update(req, res, next) {
-       Catalog.updateOne({ _id: req.params.id }, req.body)
+        DiscountCode.updateOne({ _id: req.params.id }, req.body)
        .then(() => res.send('Update'))
        .catch(error => next(error));
         
     }
     // [DELETE] 
     delete(req, res, next) {
-        Catalog.deleteOne({ _id: req.params.id })
+        DiscountCode.deleteOne({ _id: req.params.id })
         .then(() => res.send('Delete'))
         .catch(error => next(error));
          
@@ -35,4 +35,4 @@ class CatalogsController {
 
 }
 
-module.exports = new CatalogsController;
+module.exports = new DiscountCodeController;

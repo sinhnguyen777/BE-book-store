@@ -1,32 +1,32 @@
-const Catalog = require('../models/catalogs.model');
+const User = require('../models/user.model');
 
-class CatalogsController {
+class UserController {
 
     // [GET]
     index(req, res){
-        Catalog.find({})
-        .then(catalogs => res.json(catalogs))
+        User.find({})
+        .then(user => res.json(user))
         .catch(error => next(error));
 
         // res.render('catalogs');
     }
     // [POST] 
     create(req, res, next) {
-        const catalog = new Catalog(req.body);
-        catalog.save();
+        const user = new User(req.body);
+        user.save();
         res.send('Save');
         
     }
     // [PUT]
     update(req, res, next) {
-       Catalog.updateOne({ _id: req.params.id }, req.body)
+        User.updateOne({ _id: req.params.id }, req.body)
        .then(() => res.send('Update'))
        .catch(error => next(error));
         
     }
     // [DELETE] 
     delete(req, res, next) {
-        Catalog.deleteOne({ _id: req.params.id })
+        User.deleteOne({ _id: req.params.id })
         .then(() => res.send('Delete'))
         .catch(error => next(error));
          
@@ -35,4 +35,4 @@ class CatalogsController {
 
 }
 
-module.exports = new CatalogsController;
+module.exports = new UserController;
