@@ -17,6 +17,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
+app.use('/uploads',express.static('uploads'))
 
 app.engine('hbs', exphbs({
   extname: '.hbs'
