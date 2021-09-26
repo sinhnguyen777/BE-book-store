@@ -7,7 +7,6 @@ class CatalogsController {
         Catalog.find({})
         .then(catalogs => res.json(catalogs))
         .catch(error => next(error));
-
         // res.render('catalogs');
     }
     // [POST] 
@@ -15,7 +14,6 @@ class CatalogsController {
         const catalog = new Catalog(req.body);
         catalog.save();
         res.send('Save');
-        
     }
     // [PUT]
     update(req, res, next) {
