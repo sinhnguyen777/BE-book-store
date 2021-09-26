@@ -6,15 +6,15 @@ const Product = new Schema({
     idCatalog:{type: mongoose.Schema.Types.ObjectId, ref:'Catalog'},
     price:{type:Number,required:true},
     img:{type:String,required:true},
-    // images:[
-    //     {
-    //         image:{type:String},
-    //         positon:{type:String}
-    //     }
-    // ],
+    images:[
+        {
+            image:{type:String},
+            positon:{type:String}
+        }
+    ],
     description:{type:String,required:true},
     author:{type:String,required:true},
-    nbx:{type:String,required:true},
+    nxb:{type:String,required:true},
     productHot:{type:Boolean,default:false},
     productSale:{type:Boolean,default:false},
     percentSale:{type:Boolean,default:false},

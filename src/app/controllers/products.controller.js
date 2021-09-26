@@ -4,6 +4,7 @@ class ProductsController {
 
     // [GET] /products
     index(req, res){
+        console.log(1234);
         Product.find({}, function(err, product) {
             if (!err) {
                 res.json(product);                
@@ -11,17 +12,26 @@ class ProductsController {
                 res.status(400).json({error:'ERROR!!'});
             }
         });
-
     }
 
-    // [POST] 
-    create(req, res, next) {
+
+    // [POST] /Product
+    Create(req,res){
+        // newProduct = {
+        //     nameProduct = req.body.nameProduct,
+        //     price = req.body.price,
+        //     img = req.body.img,
+        //     images = [
+        //         {
+
+        //         }
+        //     ]
+        // }
         const product = new Product(req.body);
-        product.save();
-        res.send('Save');
-        
+        product.save()
+        res.send('create Product successfully');
+
     }
 
 }
-
 module.exports = new ProductsController;
