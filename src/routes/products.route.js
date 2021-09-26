@@ -4,10 +4,9 @@ const router = express.Router();
 const productsController = require('../app/controllers/products.controller');
 
 
-
-router.post('/add', productsController.Create);
+router.delete('/del/:id', productsController.delete);
+router.post('/create', productsController.Create);
 router.use('/', productsController.index);
-
 
 
 module.exports = router;

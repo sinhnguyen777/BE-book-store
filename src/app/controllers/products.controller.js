@@ -32,6 +32,13 @@ class ProductsController {
         res.send('create Product successfully');
 
     }
+    // [DELETE] 
+    delete(req, res, next) {
+        Product.deleteOne({ _id: req.params.id })
+        .then(() => res.send('Delete'))
+        .catch(error => next(error));
+         
+     }
 
 }
 module.exports = new ProductsController;
