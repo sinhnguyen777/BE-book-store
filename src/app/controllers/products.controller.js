@@ -4,7 +4,6 @@ class ProductsController {
 
     // [GET] /products
     index(req, res){
-        console.log(1234);
         Product.find({}, function(err, product) {
             if (!err) {
                 res.json(product);                
