@@ -4,7 +4,6 @@ class ProductsController {
 
     // [GET] /products
     index(req, res){
-        console.log(1234);
         Product.find({}, function(err, product) {
             if (!err) {
                 res.json(product);                
@@ -16,20 +15,26 @@ class ProductsController {
 
 
     // [POST] /Product
-    Create(req,res){
-        // newProduct = {
-        //     nameProduct = req.body.nameProduct,
-        //     price = req.body.price,
-        //     img = req.body.img,
-        //     images = [
-        //         {
-
-        //         }
-        //     ]
+     Create(req,res){
+        const newProduct = {
+            nameProduct : req.body.nameProduct,
+            price : req.body.price,
+        }
+        if(req.file){
+            
+        }
+        // if(req.files){
+        //    let path = ''
+        //    req.files.forEach(function(files,index,arr){
+        //        path = path + files.path + ','
+        //    })
+        //    path = path.substring(0,path.lastIndexOf(","))
+        //    newProduct.img = path
         // }
-        const product = new Product(req.body);
-        product.save()
-        res.send('create Product successfully');
+        // const product = new Product(req.body);
+        // product.save()
+        // res.send('create Product successfully');
+        res.send(newProduct);
 
     }
     // [DELETE] 
