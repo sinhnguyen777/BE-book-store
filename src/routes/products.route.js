@@ -5,8 +5,9 @@ const productsController = require('../app/controllers/products.controller');
 const upload = require("../app/middleware/upload")
 
 
+
 router.delete('/del/:id', productsController.delete);
-router.post('/create',upload.single('avatar'),productsController.Create);
+router.post('/create',upload.array('images[]'),productsController.Create);
 router.use('/', productsController.index);
 
 

@@ -16,34 +16,52 @@ class ProductsController {
 
     // [POST] /Product
      Create(req,res){
-        const newProduct = {
-            nameProduct : req.body.nameProduct,
-            price : req.body.price,
-        }
-        if(req.file){
+            const newProduct = {
+                nameProduct : req.body.nameProduct,
+                idCatalog:req.body.idCatalog,
+                price : req.body.price,
+                description : req.body.description,
+                author : req.body.author,
+                nxb : req.body.nxb,
+                productHot : req.body.productHot,
+                productSale : req.body.productSale,
+                percentSale : req.body.percentSale,
+                count : 0,
+            }
+    
+            if(req.files){
+            newProduct.images = []
+    
+               req.files.forEach((item,i)=>{
+                    const obj = {
+                        image: item.path,
+                        positon : i+1
+                    }
+                    newProduct.images.push(obj);
+               })
+              
+            }
+            const product = new Product(newProduct);
+            product.save(function (err) {
+                if (!err) res.send('create Product successfully');
+                else
+                    res.send('create Product fail');
+              })
             
-        }
-        // if(req.files){
-        //    let path = ''
-        //    req.files.forEach(function(files,index,arr){
-        //        path = path + files.path + ','
-        //    })
-        //    path = path.substring(0,path.lastIndexOf(","))
-        //    newProduct.img = path
-        // }
-        // const product = new Product(req.body);
-        // product.save()
-        // res.send('create Product successfully');
-        res.send(newProduct);
 
     }
+       
     // [DELETE] 
     delete(req, res, next) {
         Product.deleteOne({ _id: req.params.id })
         .then(() => res.send('Delete'))
         .catch(error => next(error));
          
-     }
+    }
 
-}
+
+    
+}   
+
+
 module.exports = new ProductsController;
