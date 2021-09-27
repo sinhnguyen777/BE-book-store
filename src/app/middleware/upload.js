@@ -2,9 +2,9 @@ const path = require('path')
 const multer = require('multer')
 
 
-var storate = multer.diskStorage({
+var storage = multer.diskStorage({
     destination: function(req,file,cb){
-        cb(null,'upload/')
+        cb(null,'uploads')
     },
     filename: function(req,file,cb){
         let ext = path.extname(file.originalname)
@@ -13,21 +13,22 @@ var storate = multer.diskStorage({
 })
 
 var upload = multer({
-    storate : storate,
+    storage : storage,
     fileFilter: function(req,file,callback){
-        // if(
-        //     file.mimetype == "image/jpg" ||
-        //     file.mimetype == "image/png"
-        // ){
+        if(
+            file.mimetype == "image/jpg" ||
+            file.mimetype == "image/jpeg" ||
+            file.mimetype == "image/png"
+        ){
             callback(null, true)
-        // }else{
-        //     console.log("only jpg & png file supported");
-        //     callback(null, false)
-        // }
-    },
+        }else{
+            console.log("only jpg & png file supported");
+            callback(null, false)
+        }
+    }/* ,
     limits: {
-        fileSize:1024*1024*2
-    }
+        fileSize:1024*1024*10
+    } */
 })
 
 module.exports = upload

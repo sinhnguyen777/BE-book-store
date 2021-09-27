@@ -6,7 +6,7 @@ const upload = require("../app/middleware/upload")
 
 
 
-router.post('/create',upload.single('avatar'),productsController.Create);
+router.post('/create',upload.array('images[]'),productsController.Create);
 router.use('/', productsController.index);
 
 
