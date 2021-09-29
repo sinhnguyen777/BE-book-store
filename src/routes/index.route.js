@@ -2,7 +2,7 @@ const productsRouter = require('./products.route');
 const catalogsRouter = require('./catalogs.route');
 const feedbacksRouter = require('./feedback.route');
 const discountCodeRouter = require('./discountCode.route');
-const usersRouter = require('./user.route');
+const usersRouter = require('./auth/user.route');
 
 function route(app) {
     
@@ -12,9 +12,6 @@ function route(app) {
     app.use('/products', productsRouter);
     app.use('/catalogs', catalogsRouter);
 
-
-
-    
 }
 
 module.exports = route;
