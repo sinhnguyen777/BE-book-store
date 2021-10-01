@@ -5,7 +5,6 @@ const Product = new Schema({
     nameProduct: {type:String,required:true},
     idCatalog:{type: mongoose.Schema.Types.ObjectId, ref:'Catalog'},
     price:{type:Number,required:true},
-    img:{type:String,required:true},
     images:[
         {
             image:{type:String},
@@ -17,7 +16,7 @@ const Product = new Schema({
     nxb:{type:String,required:true},
     productHot:{type:Boolean,default:false},
     productSale:{type:Boolean,default:false},
-    percentSale:{type:Boolean,default:false},
+    percentSale:{type:Number},
     count:{type:Number}
 },{timestamps: true})
 
