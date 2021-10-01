@@ -6,9 +6,9 @@ const upload = require("../app/middleware/upload")
 
 
 
+router.delete('/del/:id', productsController.delete);
 router.post('/create',upload.array('images[]'),productsController.Create);
 router.use('/', productsController.index);
-
 
 
 module.exports = router;

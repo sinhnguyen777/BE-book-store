@@ -46,9 +46,20 @@ class ProductsController {
                 if (!err) res.send('create Product successfully');
                 else
                     res.send('create Product fail');
-              })
-            
+              });
+    }
+       
+    // [DELETE] 
+    delete(req, res, next) {
+        Product.deleteOne({ _id: req.params.id })
+        .then(() => res.send('Delete Product successfully'))
+        .catch(error => next(error));
+         
+    }
+
+
     
-        }   
-}
+}   
+
+
 module.exports = new ProductsController;
