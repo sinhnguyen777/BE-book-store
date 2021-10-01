@@ -10,16 +10,16 @@ const User = new Schema ({
     address:{type:String},
     avatar:{type:String, required: true},
     blockMail:{type:Boolean, default: false},
-    // productLove: [
-    //     {
-    //         idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'}            
-    //     }
-    // ],
-    // listDiscount:  [
-    //     {
-    //         idDiscount:{type: mongoose.Schema.Types.ObjectId, ref:'DiscountCode'}            
-    //     }
-    // ],
+    productLove: [
+        {
+            idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'}            
+        }
+    ],
+    listDiscount:  [
+        {
+            idDiscount:{type: mongoose.Schema.Types.ObjectId, ref:'DiscountCode'}            
+        }
+    ],
 }, {
     timestamps: true,
 });

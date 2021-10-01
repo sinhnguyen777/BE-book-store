@@ -7,27 +7,26 @@ class DiscountCodeController {
         DiscountCode.find({})
         .then(discountCodes => res.json(discountCodes))
         .catch(error => next(error));
-
-        // res.render('catalogs');
     }
     // [POST] 
     create(req, res, next) {
         const discountCode = new DiscountCode(req.body);
-        discountCode.save();
-        res.send('Save');
-        
+        discountCode.save(function(err){
+            if(!err) res.send('Create DiscountCode successfully!!');
+            else res.send('Create DiscountCode failed!!!');
+        });
     }
     // [PUT]
     update(req, res, next) {
         DiscountCode.updateOne({ _id: req.params.id }, req.body)
-       .then(() => res.send('Update'))
+       .then(() => res.send('Update DiscountCode successfully!!'))
        .catch(error => next(error));
         
     }
     // [DELETE] 
     delete(req, res, next) {
         DiscountCode.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete'))
+        .then(() => res.send('Delete DiscountCode successfully!!'))
         .catch(error => next(error));
          
      }
