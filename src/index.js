@@ -8,6 +8,7 @@ const exphbs = require('express-handlebars');
 const route = require('./routes/index.route');
 const db = require('./config/db');
 
+
 //Conect DB
 db.connect();
 
