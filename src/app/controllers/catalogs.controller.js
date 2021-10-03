@@ -11,6 +11,7 @@ class CatalogsController {
     }
     // [POST] 
     create(req, res, next) {
+        res.json(req.body);
         const catalog = new Catalog(req.body);
         catalog.save(function(err){
             if(!err) res.send('Create Catalog successfully!!');
@@ -31,7 +32,6 @@ class CatalogsController {
         .catch(error => next(error));
          
      }
-
 
 }
 
