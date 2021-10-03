@@ -12,30 +12,25 @@ class CatalogsController {
     // [POST] 
     create(req, res, next) {
         const catalog = new Catalog(req.body);
-        catalog.save();
-        res.send('Save');
+        catalog.save(function(err){
+            if(!err) res.send('Create Catalog successfully!!');
+            else res.send('Create Catalog failed!!!');
+        });
     }
     // [PUT]
     update(req, res, next) {
        Catalog.updateOne({ _id: req.params.id }, req.body)
-       .then(() => res.send('Update'))
+       .then(() => res.send('Update Catalog successfully!!'))
        .catch(error => next(error));
         
     }
-    // [DELETE]
+    // [DELETE] 
     delete(req, res, next) {
         Catalog.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete'))
+        .then(() => res.send('Delete Catalog successfully!!'))
         .catch(error => next(error));
          
      }
-
-    // [POST] /catalogs
-    Create(req,res){
-        res.json(req.body);
-        const cata = new Catalog(req.body);
-        cata.save()
-    }
 
 
 }

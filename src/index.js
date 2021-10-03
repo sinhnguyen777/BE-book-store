@@ -14,12 +14,13 @@ db.connect();
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({
-  extended: true
+    extended: true
 }));
 app.use(express.json());
+app.use('/uploads',express.static('uploads'))
 
 app.engine('hbs', exphbs({
-  extname: '.hbs'
+    extname: '.hbs'
 }));
 
 app.set('view engine', 'hbs');
@@ -31,5 +32,5 @@ route(app);
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://localhost:${port}`)
 })
