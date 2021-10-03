@@ -13,8 +13,23 @@ class ProductsController {
         });
     }
 
+    // [Get] /Products/detailBySlug/:slug
+    detailBySlug(req,res,next){
+        Product.findOne({ slug: req.params.slug })
+        .then(detail=>{
+            res.send(detail)
+        }).catch(next);
+    }
 
-    // [POST] /Product
+    // [Get] /Products/detailById/:id
+    detailById(req,res,next){
+        Product.findOne({ _id: req.params.id })
+        .then(detail=>{
+            res.send(detail)
+        }).catch(next);
+    }
+
+    // [POST] /Products
      Create(req,res){
             const newProduct = {
                 nameProduct : req.body.nameProduct,

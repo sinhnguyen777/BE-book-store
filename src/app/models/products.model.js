@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const slug = require('mongoose-slug-generator');
+
+mongoose.plugin(slug);
 
 const Product = new Schema({
     nameProduct: {type:String,required:true},
@@ -17,7 +20,8 @@ const Product = new Schema({
     productHot:{type:Boolean,default:false},
     productSale:{type:Boolean,default:false},
     percentSale:{type:Number},
-    count:{type:Number}
+    count:{type:Number},
+    slug: { type: String, slug: 'nameProduct' ,unique:true}
 },{timestamps: true})
 
 module.exports = mongoose.model('Product', Product);

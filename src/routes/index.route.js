@@ -10,7 +10,6 @@ const catalogsRouter = require('./catalogs.route');
 const feedbacksRouter = require('./feedback.route');
 const discountCodeRouter = require('./discountCode.route');
 const usersRouter = require('./users.route');
-const usersRouter = require('./user.route');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
