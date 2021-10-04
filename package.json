@@ -7,7 +7,8 @@
   "node": "14.16.1"    
   },
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node app/index.js",
+    "dev": "nodemon app/index.js",
     "watch": "node-sass --watch src/resourse/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
