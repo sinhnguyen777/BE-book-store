@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const session = require('express-session')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,6 +8,7 @@ const exphbs = require('express-handlebars');
 
 const route = require('./routes/index.route');
 const db = require('./config/db');
+
 
 
 //Conect DB
@@ -19,6 +21,12 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use('/uploads',express.static('uploads'))
+app.use(
+    session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+  }));
 
 app.engine('hbs', exphbs({
     extname: '.hbs'

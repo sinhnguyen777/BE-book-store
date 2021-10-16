@@ -1,38 +1,86 @@
-const Catalog = require('../models/catalogs.model');
+const CatalogService = require('../services/catalogs.service');
 
-class CatalogsController {
-
-    // [GET]
-    index(req, res){
-        Catalog.find({})
-        .then(catalogs => res.json(catalogs))
-        .catch(error => next(error));
-        // res.render('catalogs');
+module.exports.GetAll = async (req,res,next)=>{
+    try{
+        const Catalogs = await CatalogService.getAll();
+        res.status(200).json({code:"200",message:"sucsses",data:[Catalogs]});
+        res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
     }
-    // [POST] 
-    create(req, res, next) {
-        const catalog = new Catalog(req.body);
-        catalog.save(function(err){
-            if(!err) res.send('Create Catalog successfully!!');
-            else res.send('Create Catalog failed!!!');
-        });
-    }
-    // [PUT]
-    update(req, res, next) {
-       Catalog.updateOne({ _id: req.params.id }, req.body)
-       .then(() => res.send('Update Catalog successfully!!'))
-       .catch(error => next(error));
-        
-    }
-    // [DELETE] 
-    delete(req, res, next) {
-        Catalog.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete Catalog successfully!!'))
-        .catch(error => next(error));
-         
-     }
-
-
 }
 
-module.exports = new CatalogsController;
+module.exports.create = async(req,res,next)=>{
+    try{
+        let value = req.body
+        await CatalogService.createNew(value);
+        res.status(200).json({code:"200",message:"sucsses"});
+        }catch(err){
+        console.log(err);
+    }
+}
+
+module.exports.delete = async(req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const DelCata = await CatalogService.delete(id);
+        if(!DelCata){
+            res.json({code:"404",message:"Catalogs not foud"})
+        }
+        res.json({code:"200",message:"sucsses"})
+        // res.status(200).json({code:"200",message:"sucsses"});
+    }catch(err){
+        console.log(err);
+    }
+}
+
+module.exports.update = async (req,res,next)=>{
+    try{
+        const {id} = req.body;
+        const value = req.body;
+        const UpdateCata = await CatalogService.update(id,value);
+        if(!UpdateCata){
+            res.json({code:"404",message:"Catalogs not found"})
+        }
+        res.json({code:"200",message:"sucsses"})
+    }catch(err){
+        console.log(err);
+    }
+}
+
+// class CatalogsController {
+
+//     // [GET]
+//     index(req, res){
+//         Catalog.find({})
+//         .then(catalogs => res.json(catalogs))
+//         .catch(error => next(error));
+//         // res.render('catalogs');
+//     }
+//     // [POST] 
+//     create(req, res, next) {
+//         const catalog = new Catalog(req.body);
+//         catalog.save(function(err){
+//             if(!err) res.send('Create Catalog successfully!!');
+//             else res.send('Create Catalog failed!!!');
+//         });
+//     }
+//     // [PUT]
+//     update(req, res, next) {
+//        Catalog.updateOne({ _id: req.params.id }, req.body)
+//        .then(() => res.send('Update Catalog successfully!!'))
+//        .catch(error => next(error));
+        
+//     }
+//     // [DELETE] 
+//     delete(req, res, next) {
+//         Catalog.deleteOne({ _id: req.params.id })
+//         .then(() => res.send('Delete Catalog successfully!!'))
+//         .catch(error => next(error));
+         
+//      }
+
+
+// }
+
+// module.exports = new CatalogsController;

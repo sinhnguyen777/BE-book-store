@@ -6,7 +6,8 @@ class ProductsController {
     index(req, res){
         Product.find({}, function(err, product) {
             if (!err) {
-                res.json(product);                
+                res.status(200).json({code:"200",message:"sucsses",data:[product]})
+                // res.json(product);                
             }else{
                 res.status(400).json({error:'ERROR!!'});
             }
@@ -65,10 +66,13 @@ class ProductsController {
     }
        
     // [DELETE] 
-    delete(req, res, next) {
+    delete(req, res) {
         Product.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete Product successfully'))
-        .catch(error => next(error));
+        .then(detail=>{
+            res.status(200).json({ message: "sucsses" })
+        }).catch(err=>{
+            res.status(500).json({ message: err.message, status:"500" })
+        });
          
     }
 

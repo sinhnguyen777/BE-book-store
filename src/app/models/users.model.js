@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema ({
-    fullName:{type: String, required: true},
-    email:{type:String},
+    fullName:{type: String},
+    email:{type:String,required: true},
     phone:{type:Number},
     password:{type:String, required: true},
     address:{type:String},
-    avatar:{type:String, required: true},
+    avatar:{type:String},
     blockMail:{type:Boolean, default: false},
     productLove: [
         {
