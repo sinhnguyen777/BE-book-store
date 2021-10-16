@@ -32,7 +32,10 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 
 function route(app) {
-    
+    // app.use('/', function(req,res,next){
+    //     console.log(req.session);
+    //     // res.send(req.session.view)
+    // });
     app.use('/admins', adminsRouter);
     app.use('/orderDetails', orderDetailsRouter);
     app.use('/roles', rolesRouter);
