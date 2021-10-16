@@ -25,9 +25,6 @@ function route(app) {
     app.use('/products', productsRouter);
     app.use('/catalogs', catalogsRouter);
 
-
-
-    
 }
 
 module.exports = route;
