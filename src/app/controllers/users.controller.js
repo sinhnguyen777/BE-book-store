@@ -14,7 +14,7 @@ exports.getAll = async (req,res,next)=>{
 exports.Register = async(req,res,next)=>{
     try{
         const values = req.body;
-        const user = await UserService.getByEmail(values.email);
+        const user = await UserService.getByEmail(values.email); 
         if(user.length>0){
             return res.json({message:'Tài khoản đã tồn tại!!'})
         }
@@ -81,6 +81,29 @@ exports.VerifyEmail = async(req,res,next)=>{
             return res.status(404).json({code:"404",message:"Add user fail!"});
     
     })
+}
+
+exports.Login = async (req, res, next) => {
+    try{
+        let values = req.body;
+        const user = await UserService.Login(values);
+        if (user) {
+            const jwt = require('jsonwebtoken')
+            let token = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET,{
+                expiresIn: '30m'
+            }, (err, token) => {
+                if (err) {
+                    console.log('Token sign failed');
+                }else{
+                    res.json({email:values.email, token:token})
+                }
+            }) 
+        }else{
+            return res.status(404).json({code:"404",message:"Login fail!"});            
+        }
+    } catch (error) {
+        console.log(error);        
+    }
 }
 
 // class UsersController {

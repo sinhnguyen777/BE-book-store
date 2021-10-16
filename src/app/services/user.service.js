@@ -58,6 +58,30 @@ exports.createNew = async (values) => {
 
 }
 
+exports.Login = async (values) =>{
+    try{
+        const { email ,password } = values
+        const user = await UserService.findOne({email:email})
+        if(!user){
+            return {success: false, error:'User not found'}
+        }else {
+            const bcrypt = require("bcrypt");        
+            const password_db = user.password
+            const passwordCompared = bcrypt.compareSync(password, password_db)
+            if(!passwordCompared){
+                return {success: false, error:'Password error'}
+            }else if(user.isActive==false){
+                return {success: false, error:'Account is not active'}
+            }else{
+                return user
+            }
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
 // (err) => {
 //     if(err){
 //         console.log(err)
