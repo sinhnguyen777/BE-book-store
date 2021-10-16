@@ -16,7 +16,7 @@ exports.Register = async(req,res,next)=>{
         const values = req.body;
         const user = await UserService.getByEmail(values.email);
         if(user.length>0){
-            return res.json({message:'Tài khoản đã tồn tại!'})
+            return res.json({message:'Tài khoản đã tồn tại!!'})
         }
 
         //Send Mail Xác thực
