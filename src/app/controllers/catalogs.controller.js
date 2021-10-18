@@ -3,8 +3,10 @@ const CatalogService = require('../services/catalogs.service');
 module.exports.GetAll = async (req,res,next)=>{
     try{
         const Catalogs = await CatalogService.getAll();
-        res.status(200).json({code:"200",message:"sucsses",data:[Catalogs]});
-        res.status(404).json({code:"404",message:"fail"});
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:[Catalogs]});
+        
+        // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
         console.log(err);
     }

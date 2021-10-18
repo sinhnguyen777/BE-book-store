@@ -90,7 +90,7 @@ exports.Login = async (req, res, next) => {
         if (user) {
             const jwt = require('jsonwebtoken')
             let token = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET,{
-                expiresIn: '30m'
+                expiresIn: '2m'
             }, (err, token) => {
                 if (err) {
                     console.log('Token sign failed');
