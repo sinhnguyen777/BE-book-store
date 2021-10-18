@@ -7,7 +7,8 @@ exports.getAll = async (req,res,next)=>{
         const ListUser = await UserService.getAll();
         return res.status(200).json({code:"200",message:"sucsses",data:[ListUser]});
     }catch(err){
-        console.log(err);
+        res.send(err)
+        // console.log(err);
     }
 }
 
@@ -51,10 +52,9 @@ exports.Register = async(req,res,next)=>{
                 transporter.sendMail(mainOptions,  function(err, info){
                     if (err) {
                         console.log(err);
-                        res.json('fail');
+                        return res.status(404).json(`can't send mail`);
                     } else {
-                        console.log('Message sent: ' +  info.response);
-                        res.json('success');
+                        return res.status(200).json({code:"200",'Message sent: ':info.response})
                     }
                 });
 
@@ -62,25 +62,29 @@ exports.Register = async(req,res,next)=>{
         });
         
     }catch(err){
-        console.log(err);
+        res.send(err)
+        // console.log(err);
     }
 }
 
 exports.VerifyEmail = async(req,res,next)=>{
-    const token = req.body.token;
-    const jwt = require('jsonwebtoken')
-
-    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, async(err,data)=>{
-        console.log(err,data);
-        if(err) res.sendStatus(403);
-        const addUser = await UserService.createNew(data);
-        console.log(addUser);
-        if(addUser){
-            return res.status(200).json({code:"200",message:"Add user success!"});
-        }
-            return res.status(404).json({code:"404",message:"Add user fail!"});
+    try{
+        const token = req.body.token;
+        const jwt = require('jsonwebtoken')
     
-    })
+        jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, async(err,data)=>{
+            console.log(err,data);
+            if(err) res.sendStatus(403);
+            const addUser = await UserService.createNew(data);
+            console.log(addUser);
+            if(addUser){
+                return res.status(200).json({code:"200",message:"Add user success!"});
+            }
+                return res.status(404).json({code:"404",message:"Add user fail!"});    
+        })
+    }catch(err){
+        res.send(err)
+    }
 }
 
 exports.Login = async (req, res, next) => {
@@ -89,20 +93,21 @@ exports.Login = async (req, res, next) => {
         const user = await UserService.Login(values);
         if (user) {
             const jwt = require('jsonwebtoken')
-            let token = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET,{
-                expiresIn: '2m'
+            let token = jwt.sign({email: user.email}, process.env.ACCESS_TOKEN_SECRET,{
+                expiresIn: '30m'
             }, (err, token) => {
                 if (err) {
                     console.log('Token sign failed');
                 }else{
-                    res.json({email:values.email, token:token})
+                    res.json({data:[user],token:token})
                 }
             }) 
         }else{
             return res.status(404).json({code:"404",message:"Login fail!"});            
         }
     } catch (error) {
-        console.log(error);        
+        // console.log(error);
+        res.send(err)        
     }
 }
 
