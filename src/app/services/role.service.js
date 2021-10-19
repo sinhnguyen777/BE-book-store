@@ -1,5 +1,6 @@
 const { restart } = require('nodemon');
 const RoleModel = require('../models/roles.model');
+// const permissions = require('./')
 
 exports.getAll = async () => {
     try{
@@ -22,35 +23,38 @@ exports.getById = async (id) => {
     }
 }
 
-exports.createNew = async (values) => {
+
+exports.createNew = async (nameRole,values) => {
     try{
-        const nameCata = values.nameCata
-        let newCata = new RoleModel({
-            nameCata
+        const listPermissions = values;
+        const name = nameRole;
+
+        let newRole = new RoleModel({
+            listPermissions,
+            name
         })
-        return newCata.save((err) => {
-            if(err){
-                console.log(err)
-                console.log('Add user fail!');
-            }else{
-                console.log('Add user success!');
-            }
-        })
+
+        return newRole.save()
+        .then(() => {console.log('Add user success!'); return true})
+        .catch(error =>{console.log(error); return false;});
+
+        
     }
     catch(err){
         console.log(err)
+        return false;
     }
 
 }
 
 exports.delete = async (id)=>{
     try{
-        const Cata = await this.getById(id);
-        if(!Cata){
+        const Role = await this.getById(id);
+        if(!Role){
             return false
         }
         return await RoleModel.deleteOne({_id: id}, (err) => {
-                    console.log('Delete success!');
+            console.log('Delete success!');
         }).clone()
     }
     catch(err){
