@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Role = new Schema ({
-    listPrmissions:[
+    listPermissions:[
         {
-            idPrmissions: {type: mongoose.Schema.Types.ObjectId, ref: "Prmission"}
+            idPermissions: {type: mongoose.Schema.Types.ObjectId, ref: "Permission"},
+            name: {type: String},
+            status: {type: Boolean, default: false}
         }
     ],
-    name: {type: String}
+    name: {type: String},
 }, {
     timestamps: true,
 });
