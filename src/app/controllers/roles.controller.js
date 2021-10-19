@@ -15,16 +15,19 @@ module.exports.GetAll = async (req,res,next)=>{
 
 module.exports.create = async(req,res,next)=>{
     try{
+        const name = req.body.name;
+        const checkName = await RoleService.getByName(name);
+        if(checkName){
+            return res.status(404).json({code:"404",message:"Tên đã tồn tại"}) 
+        }
         const ListPermission = [];
         const List = await Permission.getAll();
         List.map(item => ListPermission.push({idPermissions:item.id,name:item.name}))
-        console.log(ListPermission);
         const Add = await RoleService.createNew(req.body.name,ListPermission);
-        console.log(Add);
         if(Add){
             return res.status(200).json({code:"200",message:"Add user success!"})
         }
-        return res.status(401).json({code:"401",message:"Add user fail!"})
+        return res.status(404).json({code:"404",message:"Add user fail!"})
       
     }catch(err){
         console.log(err);
@@ -34,11 +37,14 @@ module.exports.create = async(req,res,next)=>{
 module.exports.delete = async(req,res,next)=>{
     try{
         const id = req.params.id;
+        if(id=="616e9df24610dc3e93caa27f"){
+            return res.status(501).json({code:"501",message:"không thể xóa admin"});
+        }
         const DelRole = await RoleService.delete(id);
         if(!DelRole){
-            res.json({code:"404",message:"Role not foud"})
+           return res.json({code:"404",message:"Role not foud"})
         }
-        res.json({code:"200",message:"sucsses"})
+        return res.json({code:"200",message:"sucsses"})
         // res.status(200).json({code:"200",message:"sucsses"});
     }catch(err){
         console.log(err);

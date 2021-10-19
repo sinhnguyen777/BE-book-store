@@ -27,14 +27,9 @@ exports.createNew = async (values) => {
         let newPermission = new permissionModel({
             name
         })
-        return newPermission.save((err) => {
-            if(err){
-                console.log(err)
-                console.log('Add  fail!');
-            }else{
-                console.log('Add success!');
-            }
-        })
+        return newPermission.save()
+        then((data) => {console.log('Add success!'); return data})
+        .catch(error =>{console.log(error); return false;});
     }
     catch(err){
         console.log(err)

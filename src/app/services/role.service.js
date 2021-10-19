@@ -23,6 +23,18 @@ exports.getById = async (id) => {
     }
 }
 
+exports.getByName = async (name) => {
+    try{
+        const user = await RoleModel.findOne({name:name});
+       if(user){
+           return user
+       }
+       return false
+    }
+    catch(err){
+        console.log(err)
+    }
+}
 
 exports.createNew = async (nameRole,values) => {
     try{
@@ -49,6 +61,7 @@ exports.createNew = async (nameRole,values) => {
 
 exports.delete = async (id)=>{
     try{
+        
         const Role = await this.getById(id);
         if(!Role){
             return false
@@ -67,4 +80,17 @@ exports.update = async (id, values) => {
       return await RoleModel.updateOne({ _id: id }, values)
        .then(() => true)
        .catch(error => false);
+}
+
+exports.getPermission = async (idRole)=>{
+    const permissions = await RoleModel.findOne({_id:idRole})
+    return permissions
+} 
+
+exports.addPermission=async(id,values)=>{
+    console.log(id, values);
+    return await RoleModel.updateOne({ _id: id }, {listPermissions:values})
+    .then(() => true)
+    .catch(error => false);
+
 }
