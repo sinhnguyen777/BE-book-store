@@ -76,7 +76,7 @@ exports.Login = async (values) =>{
             const password_db = user.password
             const passwordCompared = bcrypt.compareSync(password, password_db)
             if(!passwordCompared){
-                return {success: false, error:'Password error'}
+                return false;
             }else{
                 return user
             }

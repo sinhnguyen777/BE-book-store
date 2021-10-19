@@ -13,6 +13,9 @@ exports.getAll = async () => {
 exports.getById = async (id) => {
     try{
         const Cata = await cataModel.findById(id);
+        if(!Cata){
+            return false
+        }
         return Cata    
     }
     catch(err){
