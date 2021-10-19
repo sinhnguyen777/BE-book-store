@@ -26,11 +26,9 @@ module.exports.checkAuthencation = function(req, res, next){
 module.exports.checkAdmin = function(req, res, next){
     try{
         const token = req.headers['authorization'];
-        console.log(token);
         if(token){
             const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             if(check){
-                console.log(check.idRole);
                 if(check.idRole=="61506f1c55d26a31b1466a7c"){
                     next()
                 }else{

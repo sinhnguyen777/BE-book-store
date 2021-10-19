@@ -73,10 +73,8 @@ exports.VerifyEmail = async(req,res,next)=>{
         const jwt = require('jsonwebtoken')
     
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, async(err,data)=>{
-            console.log(err,data);
             if(err) res.sendStatus(403);
             const addUser = await UserService.createNew(data);
-            console.log(addUser);
             if(addUser){
                 return res.status(200).json({code:"200",message:"Add user success!"});
             }

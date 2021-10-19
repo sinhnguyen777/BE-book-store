@@ -13,10 +13,10 @@ exports.getAll = async () => {
 exports.getByEmail = async (Email) => {
     try{
         const user = await AdminService.find({email:Email});
-       if(user){
+       if(user.length > 0){
            return user
        }
-       return fales
+       return false
     }
     catch(err){
         console.log(err)
@@ -45,11 +45,13 @@ exports.createNew = async (values) => {
         const fullName = values.fullName
         const username = values.username
         const password = values.password
+        const email = values.email
         const idRole = values.idRole
     
         const passwordHashed = bcrypt.hashSync(password, salt);
         let newAdmin = new AdminService({
             fullName,
+            email,
             username,
             password:passwordHashed,
             idRole
@@ -86,14 +88,38 @@ exports.Login = async (values) =>{
     }
 }
 
+module.exports.changePassword = async (id, inputValues) =>{
+    const bcrypt = require("bcrypt");      
+    var salt = bcrypt.genSaltSync(10);
 
-// (err) => {
-//     if(err){
-//         console.log(err)
-//         console.log('Add user fail!');
-//         return false;
-//     }else{
-//         console.log('Add user success!');
-//         return true;
-//     }
-// }
+    const user = await AdminService.findOne({_id:id})
+    const password_db = user.password;
+    const password = inputValues.password;
+    const newPass = inputValues.newPassword;
+    const passwordCompared = bcrypt.compareSync(password, password_db)
+
+    if(!passwordCompared){
+        console.log("wrong password");
+        return false;
+    }
+
+    const passwordHashed = bcrypt.hashSync(newPass, salt);
+    const newPassword = passwordHashed;
+
+    return await AdminService.updateOne({ _id: id }, {password: newPassword})
+    .then(() => true)
+    .catch(error => false);
+}
+
+module.exports.NewPass = async (id,password)=>{
+        console.log(id);
+        const bcrypt = require("bcrypt");      
+        var salt = bcrypt.genSaltSync(10);
+        const passwordHashed = bcrypt.hashSync(password, salt);
+        const newPassword = passwordHashed;
+
+        return await AdminService.updateOne({ _id: id }, {password: newPassword})
+        .then(() => true)
+        .catch(error => false);
+
+}
