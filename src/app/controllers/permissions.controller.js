@@ -38,7 +38,7 @@ module.exports.create = async(req,res,next)=>{
                     await RoleService.addPermission(item._id,newData)
                 }
             });   
-            res.status(200).json({code:"200",message:"sucsses"});
+           return res.status(200).json({code:"200",message:"sucsses"});
         }
         }catch(err){
         console.log(err);
@@ -49,10 +49,17 @@ module.exports.delete = async(req,res,next)=>{
     try{
         const id = req.params.id;
         const DelPermission = await PermissionService.delete(id);
-        if(!DelPermission){
-            res.json({code:"404",message:"Prmission not foud"})
+        if(DelPermission){
+            const listRole = await RoleService.getAll();
+            listRole.map(async item =>{
+                const listNewPermissions = item.listPermissions;
+                const newData = listNewPermissions.filter(item => item.idPermissions !=id);
+                await RoleService.addPermission(item._id,newData)
+            })
+          return res.status(200).json({code:"200",message:"sucsses"});
         }
-        res.json({code:"200",message:"sucsses"})
+        return res.json({code:"404",message:"Permission not foud"})
+        // return res.json({code:"200",message:"sucsses"})
         // res.status(200).json({code:"200",message:"sucsses"});
     }catch(err){
         console.log(err);

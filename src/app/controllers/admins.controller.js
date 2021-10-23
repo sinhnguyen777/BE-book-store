@@ -32,7 +32,7 @@ exports.Login = async (req,res,next)=>{
         if (Admin) {
             const jwt = require('jsonwebtoken')
             let token = jwt.sign({username: Admin.username,idRole:Admin.idRole}, process.env.ACCESS_TOKEN_SECRET,{
-                expiresIn: '30m'
+                expiresIn: '24h'
             }, (err, token) => {
                 if (err) {
                     console.log('Token sign failed');

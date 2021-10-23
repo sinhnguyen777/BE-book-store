@@ -88,7 +88,6 @@ exports.getPermission = async (idRole)=>{
 } 
 
 exports.addPermission=async(id,values)=>{
-    console.log(id, values);
     return await RoleModel.updateOne({ _id: id }, {listPermissions:values})
     .then(() => true)
     .catch(error => false);

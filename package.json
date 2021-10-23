@@ -40,6 +40,6 @@
   },
   "devDependencies": {
     "node-sass": "^6.0.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   }
 }
