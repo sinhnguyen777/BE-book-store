@@ -8,15 +8,21 @@ exports.CheckoutPaypal = (req, res, next) => {
         'client_secret': 'EDmJolIfBdufyq2cOBzGZ5ojph8YrPFx883lmCWM_ntYsvfqouWRJj6X9B5g6fAZHoIjxgYadCKQL1xX'
     })
 
-    // const itemCarts = {
-    //     name: req.body.nameCart,
-    //     sku: req.body.sku,
-    //     price: req.body.priceItemCart,
-    //     currency: req.body.currency,
-    //     quantity: req.body.quantity
-    // }
+    const arrayList = []
 
+    const itemCarts = {
+        name: req.body.nameCart,
+        sku: req.body.sku,
+        price: req.body.priceItemCart,
+        currency: req.body.currency,
+        quantity: req.body.quantity
+    }
 
+    if (arrayList.length >= 0) {
+        arrayList.push(itemCarts)
+    }
+    const total = itemCarts.price * itemCarts.quantity
+    console.log(total);
 
     const create_payment_json = {
         "intent": "sale",
@@ -29,17 +35,11 @@ exports.CheckoutPaypal = (req, res, next) => {
         },
         "transactions": [{
             "item_list": {
-                "items": [{
-                    "name": "hoang tu be",
-                    "sku": "001",
-                    "price": "25.00",
-                    "currency": "USD",
-                    "quantity": 2
-                }]
+                "items": arrayList
             },
             "amount": {
                 "currency": "USD",
-                "total": "50.00"
+                "total": total
             },
             "description": "Hat for the best team ever"
         }]

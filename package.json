@@ -29,6 +29,7 @@
   "homepage": "https://github.com/hothilanstm01/nodejs_blog#readme",
   "dependencies": {
     "@babel/core": "^7.15.8",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "mongoose": "^6.0.7",
