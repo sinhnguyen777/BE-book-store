@@ -13,6 +13,19 @@ module.exports.GetAll = async (req,res,next)=>{
     }
 }
 
+module.exports.Search = async (req,res,next)=>{
+    try{
+        const search = req.query.nameProduct;
+        const ProductsSearch = await ProductService.getNameSearch(search);
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:[ProductsSearch]});
+        
+        // res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
+    }
+}
+
 module.exports.getByIdCata = async (req,res,next)=>{
     try{
         const Products = await ProductService.getByIdCata();

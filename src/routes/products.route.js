@@ -4,7 +4,7 @@ const router = express.Router();
 const productsController = require('../app/controllers/products.controller');
 const upload = require("../app/middleware/upload")
 
-
+router.get('/search',productsController.Search);
 router.get('/slug/:slug',productsController.detailBySlug);
 router.get('/idCata/:id',productsController.getByIdCata);
 router.delete('/del/:id', productsController.delete);

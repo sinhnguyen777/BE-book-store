@@ -1,9 +1,22 @@
 const ProductModel = require('../models/products.model');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 exports. getAll = async () => {
     try{
         const Product = await ProductModel.find({});
         return Product
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+exports. getNameSearch = async (nameProduct) => {
+    try{
+        var regex = new RegExp (nameProduct,'i')
+        const ProductSearch = await ProductModel.find( {nameProduct:regex } )
+        return ProductSearch
     }
     catch(err){
         console.log(err)
