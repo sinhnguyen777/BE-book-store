@@ -42,11 +42,11 @@ module.exports.update = async (req,res,next)=>{
         const value = req.body;
         const checkId = await CatalogService.getById(id);
         if(!checkId){
-            return res.status(401).json({code:"401",message:"Catalogs not found"})
+            return res.status(404).json({code:"404",message:"Catalogs not found"})
         }
         const UpdateCata = await CatalogService.update(id,value);
         if(!UpdateCata){
-            return res.status(401).json({code:"401",message:"Catalogs not found"})
+            return res.status(404).json({code:"404",message:"Catalogs not found"})
         }
         res.json({code:"200",message:"sucsses"})
     }catch(err){
