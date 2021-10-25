@@ -1,6 +1,4 @@
 const ProductModel = require('../models/products.model');
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 
 exports. getAll = async () => {
     try{
