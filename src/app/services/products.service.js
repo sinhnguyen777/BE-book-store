@@ -22,11 +22,11 @@ exports.getById = async (id) => {
 
 exports.getByIdCata = async (idCata) => {
     try{
-        const id = await ProductModel.find({idCatalog:idCata}); 
-       if(id){
-           return user
+        const products = await ProductModel.find({idCatalog:idCata}); 
+       if(products){
+           return products;
        }
-       return fales
+       return false
     }
     catch(err){
         console.log(err)
@@ -57,6 +57,7 @@ exports.createNew = async (values) => {
         const percentSale = values.percentSale
         const count = values.count
         const slug = values.slug
+        
         let newProduct = new ProductModel({
             nameProduct,
             idCatalog,

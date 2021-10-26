@@ -40,8 +40,13 @@ module.exports.detailBySlug = async (req,res,next) => {
 module.exports.create = async(req,res,next)=>{
     try{
         let value = req.body
-        await ProductService.createNew(value);
-        res.status(200).json({code:"200",message:"sucsses"});
+        const checkIdCata = await CatalogService.getById(value.idCatalog);
+        if(checkIdCata){
+            res.json("true")
+        }
+            res.json("false")
+        // await ProductService.createNew(value);
+        // res.status(200).json({code:"200",message:"sucsses"});
         }catch(err){
         console.log(err);
     }
