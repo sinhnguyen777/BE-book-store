@@ -1,65 +1,77 @@
-const Product = require('../models/products.model');
+const ProductService = require('../services/products.service');
+const CatalogService = require('../services/catalogs.service');
 
-class ProductsController {
-
-    // [GET] /products
-    index(req, res){
-        Product.find({}, function(err, product) {
-            if (!err) {
-                res.json(product);                
-            }else{
-                res.status(400).json({error:'ERROR!!'});
-            }
-        });
+module.exports.GetAll = async (req,res,next)=>{
+    try{
+        const Products = await ProductService.getAll();
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:[Products]});
+        
+        // res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
     }
+}
 
-
-    // [POST] /Product
-     Create(req,res){
-            const newProduct = {
-                nameProduct : req.body.nameProduct,
-                idCatalog:req.body.idCatalog,
-                price : req.body.price,
-                description : req.body.description,
-                author : req.body.author,
-                nxb : req.body.nxb,
-                productHot : req.body.productHot,
-                productSale : req.body.productSale,
-                percentSale : req.body.percentSale,
-                count : 0,
-            }
-    
-            if(req.files){
-            newProduct.images = []
-    
-               req.files.forEach((item,i)=>{
-                    const obj = {
-                        image: item.path,
-                        positon : i+1
-                    }
-                    newProduct.images.push(obj);
-               })
-              
-            }
-            const product = new Product(newProduct);
-            product.save(function (err) {
-                if (!err) res.send('create Product successfully');
-                else
-                    res.send('create Product fail');
-              });
+module.exports.getByIdCata = async (req,res,next)=>{
+    try{
+        const Products = await ProductService.getByIdCata();
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:[Products]});
+        
+        // res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
     }
-       
-    // [DELETE] 
-    delete(req, res, next) {
-        Product.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete Product successfully'))
-        .catch(error => next(error));
-         
+}
+
+module.exports.detailBySlug = async (req,res,next) => {
+    try{
+        const slug = req.params.slug;
+        const ProductsDetail = await ProductService.findBySlug(slug);
+        return res.status(200).json({code:"200",message:"sucsses",data:[ProductsDetail]});
+
     }
+    catch(err){
+        console.log(err)
+    }
+}
 
+module.exports.create = async(req,res,next)=>{
+    try{
+        let value = req.body
+        await ProductService.createNew(value);
+        res.status(200).json({code:"200",message:"sucsses"});
+        }catch(err){
+        console.log(err);
+    }
+}
 
-    
-}   
+module.exports.delete = async(req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const DelProduct = await ProductService.delete(id);
+        if(!DelProduct){
+            res.json({code:"404",message:"Product not foud"})
+        }
+        res.json({code:"200",message:"sucsses"})
+        // res.status(200).json({code:"200",message:"sucsses"});
+    }catch(err){
+        console.log(err);
+    }
+}
 
+module.exports.update = async (req,res,next)=>{
+    try{
+        const {id} = req.body;
+        const value = req.body;
+        const UpdateProduct = await ProductService.update(id,value);
+        if(!UpdateProduct){
+            res.json({code:"404",message:"Catalogs not found"})
+        }
+        res.json({code:"200",message:"sucsses"})
+    }catch(err){
+        console.log(err);
+    }
+}
 
-module.exports = new ProductsController;
