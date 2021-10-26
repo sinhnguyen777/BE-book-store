@@ -1,5 +1,7 @@
 const path = require('path');
 const express = require('express');
+const session = require('express-session')
+
 const app = express();
 const exphbs = require('express-handlebars');
 const route = require('./routes/index.route');
@@ -14,7 +16,13 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads',express.static('uploads'))
+app.use(
+    session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+  }));
 
 app.engine('hbs', exphbs({
     extname: '.hbs'

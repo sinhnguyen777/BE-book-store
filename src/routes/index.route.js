@@ -3,7 +3,7 @@ const checkoutRouter = require('./orders/checkout.routes')
 const productsRouter = require('./products.route');
 const orderDetailsRouter = require('./orderDetails.route');
 const rolesRouter = require('./roles.route');
-const prmissionsRouter = require('./prmissions.route');
+const permissionsRouter = require('./permissions.route');
 const ordersRouter = require('./orders.route');
 const orderCancelsRouter = require('./orderCancels.route');
 const catalogsRouter = require('./catalogs.route');
@@ -12,11 +12,14 @@ const discountCodeRouter = require('./discountCode.route');
 const usersRouter = require('./users.route');
 
 function route(app) {
-
+    // app.use('/', function(req,res,next){
+    //     console.log(req.session);
+    //     // res.send(req.session.view)
+    // });
     app.use('/admins', adminsRouter);
     app.use('/orderDetails', orderDetailsRouter);
     app.use('/roles', rolesRouter);
-    app.use('/prmissions', prmissionsRouter);
+    app.use('/permissions', permissionsRouter);
     app.use('/orders', ordersRouter);
     app.use('/orderCancels', orderCancelsRouter);
     app.use('/feedbacks', feedbacksRouter);
@@ -28,3 +31,5 @@ function route(app) {
 }
 
 module.exports = route;
+
+
