@@ -42,9 +42,10 @@ module.exports.SearchAuthor = async (req,res,next)=>{
 module.exports.getByIdCata = async (req,res,next)=>{
     try{
         const Products = await ProductService.getByIdCata();
-        
+        if(!Products){
+            return res.status(404).json({code:"404",message:"Catalog not found"});
+        }
         return res.status(200).json({code:"200",message:"sucsses",data:[Products]});
-        
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
         console.log(err);
@@ -65,14 +66,26 @@ module.exports.detailBySlug = async (req,res,next) => {
 
 module.exports.create = async(req,res,next)=>{
     try{
-        let value = req.body
+        let value = req.body;
+        if(req.files){
+            value.images = []
+    
+               req.files.forEach((item,i)=>{
+                    const obj = {
+                        image: item.path,
+                        positon : i+1
+                    }
+                    value.images.push(obj);
+               })
+              
+            }
         const checkIdCata = await CatalogService.getById(value.idCatalog);
         if(checkIdCata){
-            res.json("true")
+           await ProductService.createNew(value);
+           return res.status(200).json({code:"200",message:"sucsses"})
         }
-            res.json("false")
-        // await ProductService.createNew(value);
-        // res.status(200).json({code:"200",message:"sucsses"});
+        console.log();
+            return res.status(404).json({code:"404",message:"Catalog not found"});
         }catch(err){
         console.log(err);
     }
@@ -91,18 +104,33 @@ module.exports.delete = async(req,res,next)=>{
         console.log(err);
     }
 }
-
-module.exports.update = async (req,res,next)=>{
+module.exports.update = async (req, res, next) => {
     try{
-        const {id} = req.body;
-        const value = req.body;
-        const UpdateProduct = await ProductService.update(id,value);
-        if(!UpdateProduct){
-            res.json({code:"404",message:"Catalogs not found"})
-        }
-        res.json({code:"200",message:"sucsses"})
-    }catch(err){
-        console.log(err);
+        // const id = req.params.id;
+        let values = req.body;
+       console.log(req.body);
+        // await tinhThanhService.update(id, values);
+        // res.redirect('/provinces')
     }
+    catch(err){
+        console.log(err)
+    }
+
 }
+
+// module.exports.update = async (req,res,next)=>{
+//     try{
+        
+//         const id = req.body;
+//         const value = req.body;
+//         console.log(req.body);
+//         // const UpdateProduct = await ProductService.update(id,value);
+//         // if(!UpdateProduct){
+//         //    return res.json({code:"404",message:"Catalogs not found"})
+//         // }
+//         return res.json({code:"200",message:"sucsses"})
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
 
