@@ -10,12 +10,15 @@ const catalogsRouter = require('./catalogs.route');
 const feedbacksRouter = require('./feedback.route');
 const discountCodeRouter = require('./discountCode.route');
 const usersRouter = require('./users.route');
+const chaptersRouter = require('./chapter.route');
+
 
 function route(app) {
     // app.use('/', function(req,res,next){
     //     console.log(req.session);
     //     // res.send(req.session.view)
     // });
+    app.use('/chapter', chaptersRouter);
     app.use('/admins', adminsRouter);
     app.use('/orderDetails', orderDetailsRouter);
     app.use('/roles', rolesRouter);
