@@ -19,7 +19,9 @@ exports.getById = async (id) => {
         return Cata    
     }
     catch(err){
-        console.log(err)
+        // console.log(err);
+        return false
+
     }
 }
 
