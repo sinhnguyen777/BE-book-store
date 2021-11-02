@@ -48,11 +48,11 @@ exports.getById = async (id) => {
 
 exports.getByIdCata = async (idCata) => {
     try{
-        const id = await ProductModel.find({idCatalog:idCata}); 
-       if(id){
-           return user
+        const products = await ProductModel.find({idCatalog:idCata}); 
+       if(products){
+           return products;
        }
-       return fales
+       return false
     }
     catch(err){
         console.log(err)
@@ -83,6 +83,7 @@ exports.createNew = async (values) => {
         const percentSale = values.percentSale
         const count = values.count
         const slug = values.slug
+        const images = values.images
         let newProduct = new ProductModel({
             nameProduct,
             idCatalog,
@@ -94,7 +95,8 @@ exports.createNew = async (values) => {
             productSale,
             percentSale,
             count,
-            slug
+            slug,
+            images
         })
         return newProduct.save((err) => {
             if(err){
@@ -128,7 +130,20 @@ exports.delete = async (id)=>{
 }
 
 exports.update = async (id, values) => {
-      return await ProductModel.updateOne({ _id: id }, values)
-       .then(() => true)
-       .catch(error => false);
+    if(values.files){
+        const newValue = [... value.images ]
+
+           req.files.forEach((item,i)=>{
+                const obj = {
+                    image: item.path,
+                    positon : i+1
+                }
+                console.log(newValue);
+                // value.images.push(obj);
+           })
+          
+        }
+    //   return await ProductModel.updateOne({ _id: id }, values)
+    //    .then(() => true)
+    //    .catch(error => false);
 }
