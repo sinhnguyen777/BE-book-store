@@ -12,6 +12,21 @@ module.exports.GetAll = async (req,res,next)=>{
     }
 }
 
+module.exports.getByIdCata = async (req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const Catalogs = await CatalogService.getById(id);
+        if(!Catalogs){
+            return res.status(404).json({code:"404",message:"Catalog not found"});
+        }
+        return res.status(200).json({code:"200",message:"sucsses",data:Catalogs});
+        // res.status(404).json({code:"404",message:"fail"});
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
 module.exports.create = async(req,res,next)=>{
     try{
         let value = req.body
