@@ -5,7 +5,7 @@ module.exports.GetAll = async (req,res,next)=>{
     try{
         const Permission = await PermissionService.getAll();
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[Permission]});
+        return res.status(200).json({code:"200",message:"sucsses",data:Permission});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
@@ -21,6 +21,7 @@ module.exports.create = async(req,res,next)=>{
             idPermissions:add._id,
             name:add.name
         }
+        
         if(add){
             const listRole = await RoleService.getAll();
             await listRole.map( async(item)=>{
