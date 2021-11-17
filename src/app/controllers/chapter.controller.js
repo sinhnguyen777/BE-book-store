@@ -4,7 +4,7 @@ module.exports.GetAll = async (req,res,next)=>{
     try{
         const Chapters = await ChapterService.getAll();
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[Chapters]});
+        return res.status(200).json({code:"200",message:"sucsses",data:Chapters});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){

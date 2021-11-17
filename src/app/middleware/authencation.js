@@ -51,7 +51,6 @@ module.exports.checkRoleDelCata = async function(req,res,next){
         if(token){
             const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             const checkRole = await RoleService.getPermission(check.idRole);
-            // console.log(checkRole);
             const getPermission = checkRole.listPermissions.filter(item=>item.idPermissions == "617569371dc6751ed1cfb13d");
             console.log(getPermission[0].status);
             if(getPermission[0].status){

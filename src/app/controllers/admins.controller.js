@@ -87,6 +87,7 @@ exports.forgotpassword = async(req,res,next)=>{
                     },
                     tls: {rejectUnauthorized:false}  
                 });
+
                 var mainOptions = { 
                     from: 'congndps11796@fpt.edu.vn',
                     to: user[0].email,
@@ -170,8 +171,6 @@ module.exports.resetPassword = async (req, res, next) => {
         if(err){
             return res.status(401).json({code:401,message:"Qúa thời hạn xác thực"})
         }else{
-            // console.log(decode.userId);
-            // console.log(password);
             const add = await AdminService.NewPass(decode.userId,password);
             if(add){
                 return res.status(200).json({code:200,message:"Xác thực thành công"})

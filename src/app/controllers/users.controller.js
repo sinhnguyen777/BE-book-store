@@ -5,7 +5,7 @@ dotenv.config();
 exports.getAll = async (req,res,next)=>{
     try{    
         const ListUser = await UserService.getAll();
-        return res.status(200).json({code:"200",message:"sucsses",data:[ListUser]});
+        return res.status(200).json({code:"200",message:"sucsses",data:ListUser});
     }catch(err){
         res.send(err)
         // console.log(err);
