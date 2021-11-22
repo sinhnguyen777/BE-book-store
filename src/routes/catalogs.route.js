@@ -8,6 +8,7 @@ router.delete('/del/:id',middlewares.checkAuthencation,middlewares.checkRoleDelC
 router.put('/edit', catalogsController.update);
 router.post('/create', catalogsController.create);
 router.get('/', catalogsController.GetAll);
+router.get('/:id', catalogsController.getByIdCata);
 
 
 module.exports = router;

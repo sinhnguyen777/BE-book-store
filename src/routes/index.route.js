@@ -1,5 +1,5 @@
 const adminsRouter = require('./admins.route');
-
+const checkoutRouter = require('./orders/checkout.routes')
 const productsRouter = require('./products.route');
 const orderDetailsRouter = require('./orderDetails.route');
 const rolesRouter = require('./roles.route');
@@ -30,6 +30,7 @@ function route(app) {
     app.use('/discountCodes', discountCodeRouter);
     app.use('/products', productsRouter);
     app.use('/catalogs', catalogsRouter);
+    app.use('/pay', checkoutRouter);
 }
 
 module.exports = route;

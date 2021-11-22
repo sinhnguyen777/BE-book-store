@@ -5,7 +5,7 @@ module.exports.GetAll = async (req,res,next)=>{
     try{
         const Products = await ProductService.getAll();
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[Products]});
+        return res.status(200).json({code:"200",message:"sucsses",data:Products});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
@@ -18,7 +18,7 @@ module.exports.SearchName = async (req,res,next)=>{
         const search = req.query.nameProduct;
         const ProductsSearch = await ProductService.getNameSearch(search);
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[ProductsSearch]});
+        return res.status(200).json({code:"200",message:"sucsses",data:ProductsSearch});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
@@ -31,7 +31,7 @@ module.exports.SearchAuthor = async (req,res,next)=>{
         const search = req.query.author;
         const ProductsSearch = await ProductService.getAuthorSearch(search);
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[ProductsSearch]});
+        return res.status(200).json({code:"200",message:"sucsses",data:ProductsSearch});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
@@ -45,7 +45,7 @@ module.exports.getByIdCata = async (req,res,next)=>{
         if(!Products){
             return res.status(404).json({code:"404",message:"Catalog not found"});
         }
-        return res.status(200).json({code:"200",message:"sucsses",data:[Products]});
+        return res.status(200).json({code:"200",message:"sucsses",data:Products});
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
         console.log(err);
@@ -56,7 +56,7 @@ module.exports.detailBySlug = async (req,res,next) => {
     try{
         const slug = req.params.slug;
         const ProductsDetail = await ProductService.findBySlug(slug);
-        return res.status(200).json({code:"200",message:"sucsses",data:[ProductsDetail]});
+        return res.status(200).json({code:"200",message:"sucsses",data:ProductsDetail});
 
     }
     catch(err){
