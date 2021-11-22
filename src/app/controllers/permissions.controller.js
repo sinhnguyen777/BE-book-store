@@ -13,6 +13,22 @@ module.exports.GetAll = async (req,res,next)=>{
     }
 }
 
+module.exports.getById = async (req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const permissions = await PermissionService.getById(id);
+        if(!permissions){
+            return res.status(404).json({code:"404",message:"permissions not found"});
+        }
+        return res.status(200).json({code:"200",message:"sucsses",data:permissions});
+        // res.status(404).json({code:"404",message:"fail"});
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
 module.exports.create = async(req,res,next)=>{
     try{
         let value = req.body;
