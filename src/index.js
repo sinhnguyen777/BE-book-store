@@ -5,7 +5,7 @@ const session = require('express-session')
 
 
 const app = express();
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
 
 const exphbs = require('express-handlebars');
 const route = require('./routes/index.route');
