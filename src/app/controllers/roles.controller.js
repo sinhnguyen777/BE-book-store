@@ -5,7 +5,7 @@ module.exports.GetAll = async (req,res,next)=>{
     try{
         const Role = await RoleService.getAll();
         
-        return res.status(200).json({code:"200",message:"sucsses",data:[Role]});
+        return res.status(200).json({code:"200",message:"sucsses",data:Role});
         
         // res.status(404).json({code:"404",message:"fail"});
     }catch(err){
