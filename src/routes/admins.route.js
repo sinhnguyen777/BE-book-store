@@ -11,6 +11,7 @@ router.post('/login', adminsController.Login);
 router.post('/change-password', adminsController.changePassword);
 router.post('/forgot-password', adminsController.forgotpassword);
 router.post('/newpass', adminsController.resetPassword);
+router.post('/access-token', adminsController.AccessToken);
 // router.get('/', adminsController.index);
 
 
