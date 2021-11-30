@@ -66,3 +66,15 @@ module.exports.checkRoleDelCata = async function(req,res,next){
         // return res.redirect('/users/login')
     }
 }
+
+
+module.exports.demo = async function(req,res,next){
+    try{
+        let value = req.body;
+        console.log(value);
+    }catch(err){
+        console.log(err);
+        return res.status(405).json({status:405,message:"Token verify failed"})
+        // return res.redirect('/users/login')
+    }
+}

@@ -12,6 +12,20 @@ module.exports.GetAll = async (req,res,next)=>{
     }
 }
 
+module.exports.getByIdProduct = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const Chapter = await ChapterService.getByIdProduct(id);
+        if (!Chapter) {
+            return res.status(404).json({ code: "404", message: "Products not found" });
+        }
+        return res.status(200).json({ code: "200", message: "sucsses", data: Chapter });
+        // res.status(404).json({code:"404",message:"fail"});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports.create = async(req,res,next)=>{
     try{
         let value = req.body

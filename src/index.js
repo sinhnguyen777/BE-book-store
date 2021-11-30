@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
-const session = require('express-session')
+const session = require('express-session');
+const bodyParser = require('body-parser');
+
 
 
 
@@ -14,6 +16,7 @@ const cors = require('cors')
 //Conect DB
 db.connect();
 
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({

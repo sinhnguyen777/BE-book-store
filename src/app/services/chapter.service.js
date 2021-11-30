@@ -23,6 +23,19 @@ exports.getById = async (id) => {
     }
 }
 
+exports.getByIdProduct = async (id) => {
+    try{
+        const chapter = await ChapterModel.find({idProduct:id}); 
+       if(chapter){
+           return chapter;
+       }
+       return false
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 exports.createNew = async (values) => {
     try{
         const nameChapter = values.nameChapter
