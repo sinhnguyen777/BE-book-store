@@ -98,8 +98,10 @@ exports.createNew = async (values) => {
             if(err){
                 console.log(err)
                 console.log('Add user fail!');
+                return false
             }else{
                 console.log('Add user success!');
+                return true
             }
         })
     }

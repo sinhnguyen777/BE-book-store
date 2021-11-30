@@ -117,6 +117,7 @@ module.exports.NewPass = async (id,password)=>{
         var salt = bcrypt.genSaltSync(10);
         const passwordHashed = bcrypt.hashSync(password, salt);
         const newPassword = passwordHashed;
+        console.log(newPassword);
 
         return await AdminService.updateOne({ _id: id }, {password: newPassword})
         .then(() => true)

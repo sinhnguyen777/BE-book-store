@@ -20,7 +20,7 @@ exports.Register = async (req, res, next) => {
         if (addAdmin) {
             return res.status(200).json({ code: "200", message: "Add Admin success" });
         }
-        return res.status(404).json({ code: "404", message: "IdRole does not exist" });
+        return res.status(404).json({ code: "404", message: "register admin fail" });
     } catch {
         res.send(err);
     }
