@@ -35,10 +35,14 @@ exports. getAuthorSearch = async (author) => {
 exports.getById = async (id) => {
     try{
         const Product = await ProductModel.findById(id);
-        return Product    
+        if(Product){
+            return Product;
+        }    
+        return false;
     }
     catch(err){
-        console.log(err)
+        console.log(err);
+        return false;
     }
 }
 

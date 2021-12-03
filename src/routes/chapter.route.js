@@ -9,6 +9,7 @@ router.put('/edit', chaptersController.update);
 router.post('/create', chaptersController.create);
 router.get('/idProduct/:id',chaptersController.getByIdProduct);
 router.get('/', chaptersController.GetAll);
+router.get('/:id', chaptersController.getById);
 
 
 module.exports = router;

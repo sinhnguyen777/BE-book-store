@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const Chapter = new Schema ({
     nameChapter : {type: String, required: true},
     idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'},
-    content : {type: String, required: true},
+    content : {type: String, default: ''},
     stt : {type: String, required: true}
 }, {
     timestamps: true,

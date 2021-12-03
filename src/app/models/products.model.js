@@ -7,7 +7,7 @@ mongoose.plugin(slug);
 const Product = new Schema({
     nameProduct: {type:String,required:true},
     idCatalog:{type: mongoose.Schema.Types.ObjectId, ref:'Catalog'},
-    price:{type:Number,required:true},
+    price:{type:String,required:true},
     images:[
         {
             image:{type:String},

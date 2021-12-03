@@ -1,38 +1,52 @@
-const Order = require('../models/orders.model');
+const OrderService = require('../services/order.service');
+const ProductService = require('../services/products.service');
 
-class OrdersController {
+module.exports.NewOrder = async (req,res,next)=>{
+    try{
+        const value = req.body;
+        console.log(value.orderDetail);
+        const orderdetail =[];
+        await value.orderDetail.map( async(item)=>{
+            const check = await ProductService.getById(item.idProduct);
+            if(check){
+                console.log(item);
+                orderdetail.push(item);
+            }
+        })
+        console.log(orderdetail);
 
-    // [GET]
-    index(req, res){
-        Order.find({})
-        .then(orders => res.json(orders))
-        .catch(error => next(error));
-        // res.render('Oders');
-    }
-    // [POST] 
-    create(req, res, next) {
-        const order = new Oder(req.body);
-        order.save(function(err){
-            if(!err) res.send('Create Oder successfully!!');
-            else res.send('Create Oder failed!!!');
-        });
-    }
-    // [PUT]
-    update(req, res, next) {
-       Order.updateOne({ _id: req.params.id }, req.body)
-       .then(() => res.send('Update Oder successfully!!'))
-       .catch(error => next(error));
+        // const Order = await OrderService.newOrder(value,orderdetail);
         
+        return res.status(200).json({code:"200",message:"sucsses"});
+        
+        // res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
     }
-    // [DELETE] 
-    delete(req, res, next) {
-        Order.deleteOne({ _id: req.params.id })
-        .then(() => res.send('Delete Oder successfully!!'))
-        .catch(error => next(error));
-         
-     }
-
-
 }
 
-module.exports = new OrdersController;
+module.exports.confirm = async(req,res,next)=>{
+    try{
+        let value = req.body
+        await OrderService.createNew(value);
+        res.status(200).json({code:"200",message:"sucsses"});
+        }catch(err){
+        console.log(err);
+    }
+}
+
+module.exports.cancel = async (req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const DelOrder = await OrderService.delete(id);
+        if(!DelOrder){
+            res.json({code:"404",message:"Order not foud"})
+        }
+        res.json({code:"200",message:"sucsses"})
+        // res.status(200).json({code:"200",message:"sucsses"});
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
