@@ -14,7 +14,7 @@ const Order = new Schema ({
             type: {type: Boolean}
         }
     ],
-    total: {type: String},
+    total: {type: Number},
     cancel : {type: Boolean, default: false},
     dateCreate:{type:Date, required: true},
     dateSend:{type:Date, required: true}
