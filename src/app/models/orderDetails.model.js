@@ -6,7 +6,7 @@ const OrderDetail = new Schema ({
     idProduct : {type: mongoose.Schema.Types.ObjectId, ref:'Product'},
     idOrder : {type: mongoose.Schema.Types.ObjectId, ref:'Order'},    
     quantity : {type: Number},
-    price: {type: String}
+    price: {type: Number}
 }, {
     timestamps: true,
 });

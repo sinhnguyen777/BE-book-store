@@ -17,7 +17,7 @@ const Order = new Schema ({
         type:{type: String, default: '0'},
         name:{type: String, default: 'Chưa xác nhận'}
     },
-    total: {type: String},
+    total: {type: Number},
     dateCreate:{type:Date, required: true},
     dateSend:{type:Date}
 }, {
