@@ -118,6 +118,16 @@ module.exports.update = async (req, res, next) => {
 
 }
 
+module.exports.GetProductById = async (req,res,next) => {
+    try {
+        const idProductDetail = req.params.id
+        const dataProductDetail = await ProductService.getById(idProductDetail)
+        return res.status('200').json({code: '200', message: 'success', data: dataProductDetail})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // module.exports.update = async (req,res,next)=>{
 //     try{
         
