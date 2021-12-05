@@ -7,14 +7,14 @@ const { removeListener } = require('../app/models/products.model');
 const middlewares = require('../app/middleware/authencation')
 
 
-router.get('/searchAuthor',productsController.SearchAuthor);
-router.get('/searchName',productsController.SearchName);
-router.get('/slug/:slug',productsController.detailBySlug);
-router.get('/idCata/:id',productsController.getByIdCata);
+router.get('/searchAuthor', productsController.SearchAuthor);
+router.get('/searchName', productsController.SearchName);
+router.get('/slug/:slug', productsController.detailBySlug);
+router.get('/:id', productsController.GetProductById)
+router.get('/idCata/:id', productsController.getByIdCata);
 router.delete('/del/:id', productsController.delete);
-router.post('/create',upload.array('images'),productsController.create);
-router.put('/update',productsController.update)
+router.post('/create', upload.array('images'), productsController.create);
+router.put('/update', productsController.update)
 router.use('/', productsController.GetAll);
-
 
 module.exports = router;
