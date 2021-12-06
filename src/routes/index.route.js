@@ -12,6 +12,7 @@ const discountCodeRouter = require('./discountCode.route');
 const usersRouter = require('./users.route');
 const chaptersRouter = require('./chapter.route');
 const vipsRouter = require('./vip.route');
+const commentsRouter = require('./comment.router');
 
 
 function route(app) {
@@ -19,6 +20,7 @@ function route(app) {
     //     console.log(req.session);
     //     // res.send(req.session.view)
     // });
+    app.use('/comment', commentsRouter);
     app.use('/vip', vipsRouter);
     app.use('/chapter', chaptersRouter);
     app.use('/admins', adminsRouter);
