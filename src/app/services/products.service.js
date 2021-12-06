@@ -81,9 +81,12 @@ exports.createNew = async (values) => {
         const productHot = values.productHot
         const productSale = values.productSale
         const percentSale = values.percentSale
-        const count = values.count
+        const quantitySale = values.quantitySale
+        const quantity = values.quantity
+        const view = values.view
         const slug = values.slug
         const images = values.images
+        const wishlist = values.wishlist
         let newProduct = new ProductModel({
             nameProduct,
             idCatalog,
@@ -94,9 +97,12 @@ exports.createNew = async (values) => {
             productHot,
             productSale,
             percentSale,
-            count,
+            quantity,
+            quantitySale,
+            view,
             slug,
-            images
+            images,
+            wishlist
         })
         return newProduct.save((err) => {
             if(err){

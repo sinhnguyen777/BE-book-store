@@ -7,7 +7,7 @@ mongoose.plugin(slug);
 const Product = new Schema({
     nameProduct: {type:String,required:true},
     idCatalog:{type: mongoose.Schema.Types.ObjectId, ref:'Catalog'},
-    price:{type:String,required:true},
+    price:{type:Number,required:true},
     images:[
         {
             image:{type:String},
@@ -20,7 +20,15 @@ const Product = new Schema({
     productHot:{type:Boolean,default:false},
     productSale:{type:Boolean,default:false},
     percentSale:{type:Number},
-    count:{type:Number},
+    quantitySale:{type:Number},
+    quantity:{type:Number},
+    view:{type:Number},
+    wishlist:[
+        {
+            idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'},
+            idUser:{type: mongoose.Schema.Types.ObjectId, ref:'User'}
+        }
+    ],
     slug: { type: String, slug: 'nameProduct' ,unique:true}
 },{timestamps: true})
 
