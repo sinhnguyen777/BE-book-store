@@ -10,9 +10,9 @@ exports. getAll = async (filter) => {
     }
 }
 
-exports. getNameSearch = async (nameProduct) => {
+exports. getNameSearch = async (nameProducts) => {
     try{
-        var regex = new RegExp (nameProduct,'i')
+        var regex = new RegExp (nameProducts,'i')
         const ProductSearch = await ProductModel.find( {nameProduct:regex } )
         return ProductSearch
     }
@@ -21,9 +21,9 @@ exports. getNameSearch = async (nameProduct) => {
     }
 }
 
-exports. getAuthorSearch = async (author) => {
+exports. getAuthorSearch = async (authors) => {
     try{
-        var regex = new RegExp (author,'i')
+        var regex = new RegExp (authors,'i')
         const ProductSearch = await ProductModel.find( {author:regex } )
         return ProductSearch
     }
