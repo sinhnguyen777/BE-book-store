@@ -10,6 +10,7 @@ const catalogsRouter = require('./catalogs.route');
 const feedbacksRouter = require('./feedback.route');
 const discountCodeRouter = require('./discountCode.route');
 const usersRouter = require('./users.route');
+const wishlishRouter = require('./wishlish.router')
 const chaptersRouter = require('./chapter.route');
 const vipsRouter = require('./vip.route');
 const commentsRouter = require('./comment.router');
@@ -31,6 +32,7 @@ function route(app) {
     app.use('/orderCancels', orderCancelsRouter);
     app.use('/feedbacks', feedbacksRouter);
     app.use('/users', usersRouter);
+    app.use('/wishlish', wishlishRouter);
     app.use('/discountCodes', discountCodeRouter);
     app.use('/products', productsRouter);
     app.use('/catalogs', catalogsRouter);

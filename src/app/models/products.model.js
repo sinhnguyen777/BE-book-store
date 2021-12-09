@@ -23,12 +23,6 @@ const Product = new Schema({
     quantitySale:{type:Number},
     quantity:{type:Number},
     view:{type:Number},
-    wishlist:[
-        {
-            idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'},
-            idUser:{type: mongoose.Schema.Types.ObjectId, ref:'User'}
-        }
-    ],
     slug: { type: String, slug: 'nameProduct' ,unique:true}
 },{timestamps: true})
 

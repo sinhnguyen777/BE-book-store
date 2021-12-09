@@ -2,6 +2,14 @@ const ProductModel = require('../models/products.model');
 
 exports. getAll = async (filter) => {
     try{
+
+        if(filter.hasOwnProperty('_sort')){
+            const Product = await ProductModel.find(filter).sort({
+                [filter.column] : filter.type
+            });
+            return Product
+        }
+
         const Product = await ProductModel.find(filter);
         return Product
     }
