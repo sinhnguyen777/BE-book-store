@@ -4,6 +4,7 @@ const CatalogService = require('../services/catalogs.service');
 module.exports.GetAll = async (req, res, next) => {
     try {
         const filter = req.query
+        
         const Products = await ProductService.getAll(filter);
 
         return res.status(200).json({ code: "200", message: "sucsses", data: Products });
