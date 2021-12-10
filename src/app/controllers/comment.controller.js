@@ -4,7 +4,7 @@ const UserService = require('../services/user.service');
 
 module.exports.GetAll = async (req,res,next)=>{
     try{
-        const Catalogs = await CommentService.getAll();
+        const Catalogs = await CommentService.getAll(req.body.idProduct);
         
         return res.status(200).json({code:"200",message:"sucsses",data:Catalogs});
         

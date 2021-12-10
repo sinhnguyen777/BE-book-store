@@ -1,8 +1,8 @@
 const commentModel = require('../models/comment.model');
 
-exports.getAll = async () => {
+exports.getAll = async (value) => {
     try{
-        const comment = await commentModel.find({});
+        const comment = await commentModel.find({idProduct:value});
         return comment
     }
     catch(err){
@@ -29,12 +29,10 @@ exports.createNew = async (values) => {
         const content = values.content
         const idUser = values.idUser
         const idProduct = values.idProduct
-        const like = values.like
         let newComment = new commentModel({
             content,
             idUser,
             idProduct,
-            like
         })
         return newComment.save((err) => {
             if(err){
