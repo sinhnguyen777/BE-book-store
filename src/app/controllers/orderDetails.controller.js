@@ -1,25 +1,18 @@
-const OrderDetail = require('../models/orderDetails.model');
+const OrderDetailService = require('../services/orderDetail.service');
 
-class OrderDetailsController {
-
-    // [GET]
-    index(req, res){
-        OrderDetail.find({})
-        .then(OrderDetails => res.json(OrderDetails))
-        .catch(error => next(error));
-        // res.render('OrderDetails');
+module.exports.NewOrderDetail = async (req,res,next)=>{
+    try{
+        const value = req.body;
+        const Order = await OrderDetailService.newOrder(value);
+        res.json(Order)
+        
+        // return res.status(200).json({code:"200",message:"sucsses"});
+        
+        // res.status(404).json({code:"404",message:"fail"});
+    }catch(err){
+        console.log(err);
     }
-    // [POST] 
-    create(req, res, next) {
-        const OrderDetail = new OrderDetail(req.body);
-        OrderDetail.save(function(err){
-            if(!err) res.send('Create OrderDetail successfully!!');
-            else res.send('Create OrderDetail failed!!!');
-        });
-    }
-    
-
-
 }
 
-module.exports = new OrderDetailsController;
+
+
