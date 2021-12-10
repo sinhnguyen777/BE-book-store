@@ -1,8 +1,8 @@
 const commentModel = require('../models/comment.model');
 
-exports.getAll = async (value) => {
+exports.getAll = async (id) => {
     try{
-        const comment = await commentModel.find({idProduct:value});
+        const comment = await commentModel.find({idProduct:id});
         return comment
     }
     catch(err){

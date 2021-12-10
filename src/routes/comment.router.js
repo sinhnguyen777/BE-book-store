@@ -8,7 +8,7 @@ router.delete('/del/:id',middlewares.checkAuthencation,middlewares.checkRoleDelC
 router.put('/edit', commentController.update);
 router.post('/create', commentController.create);
 router.get('/:id', commentController.getByIdCata);
-router.get('/', commentController.GetAll);
+router.get('/idProduct/:id', commentController.GetAllByIdProduct);
 
 
 module.exports = router;

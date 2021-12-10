@@ -2,9 +2,10 @@ const CommentService = require('../services/comment.service');
 const ProductService = require('../services/products.service');
 const UserService = require('../services/user.service');
 
-module.exports.GetAll = async (req,res,next)=>{
+module.exports.GetAllByIdProduct = async (req,res,next)=>{
     try{
-        const Catalogs = await CommentService.getAll(req.body.idProduct);
+        const id = req.params.id;
+        const Catalogs = await CommentService.getAll(id);
         
         return res.status(200).json({code:"200",message:"sucsses",data:Catalogs});
         
