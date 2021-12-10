@@ -8,6 +8,7 @@ const usersController = require('../app/controllers/users.controller');
 router.post('/login', usersController.Login);
 router.post('/register', usersController.Register);
 router.post('/verify-email', usersController.VerifyEmail);
+router.get('/:id', usersController.getUserById);
 router.get('/', usersController.getAll);
 
 

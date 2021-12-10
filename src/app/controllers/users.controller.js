@@ -11,6 +11,16 @@ exports.getAll = async (req,res,next)=>{
         // console.log(err);
     }
 }
+exports.getUserById = async (req,res,next)=>{
+    try{    
+        const id = req.params.id;
+        const ListUser = await UserService.getById(id);
+        return res.status(200).json({code:"200",message:"sucsses",data:ListUser});
+    }catch(err){
+        res.send(err)
+        // console.log(err);
+    }
+}
 
 exports.Register = async(req,res,next)=>{
     try{
