@@ -37,9 +37,9 @@ exports.createNew = async (values) => {
         return newComment.save((err) => {
             if(err){
                 console.log(err)
-                console.log('Add user fail!');
+                console.log('Add Comment fail!');
             }else{
-                console.log('Add user success!');
+                console.log('Add Comment success!');
             }
         })
     }
