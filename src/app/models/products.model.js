@@ -22,6 +22,8 @@ const Product = new Schema({
     percentSale:{type:Number},
     quantitySale:{type:Number},
     quantity:{type:Number},
+    dateDebut:{type: Date},
+    statusDebut:{type: Boolean , default: false },
     view:{type:Number},
     slug: { type: String, slug: 'nameProduct' ,unique:true}
 },{timestamps: true})

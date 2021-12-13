@@ -7,5 +7,6 @@ router.put('/cancle', ordersController.cancel);
 router.put('/confirm', ordersController.confirm);
 router.post('/create', ordersController.NewOrder);
 router.post('/verify-order', ordersController.verifyOrder);
+router.get('/', ordersController.GetAll);
 
 module.exports = router;

@@ -3,12 +3,26 @@ const ProductService = require('../services/products.service');
 const OrderDetailService = require('../services/orderDetail.service');
 const UserService = require('../services/user.service');
 
+
+module.exports.GetAll = async (req, res, next) => {
+    try {
+        const filter = req.query
+        
+        const Order = await OrderService.getAll(filter);
+
+        return res.status(200).json({ code: "200", message: "sucsse", data: Order });
+
+        // res.status(404).json({code:"404",message:"fail"});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports.NewOrder = async (req, res, next) => {
     try {
         const value = req.body;
         const idUser = value.idUser;
         const checkUser = await UserService.getById(idUser)
-        console.log(checkUser);
         if (!checkUser) {
             value.cancel = true;
             value.reason = 'Chưa Xác Thực Email';
