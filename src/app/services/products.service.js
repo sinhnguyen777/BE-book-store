@@ -92,6 +92,7 @@ exports.createNew = async (values) => {
         const quantitySale = values.quantitySale
         const quantity = values.quantity
         const view = values.view
+        const dateDebut = values.dateDebut
         const slug = values.slug
         const images = values.images
         const wishlist = values.wishlist
@@ -108,6 +109,7 @@ exports.createNew = async (values) => {
             quantity,
             quantitySale,
             view,
+            dateDebut,
             slug,
             images,
             wishlist
