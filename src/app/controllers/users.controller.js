@@ -40,14 +40,14 @@ exports.Register = async(req,res,next)=>{
                 var transporter =  nodemailer.createTransport({ // config mail server
                     service:"gmail",  
                     auth: {
-                        user: 'congndps11796@fpt.edu.vn',
-                        pass: 'duccong14102001'
+                        user: 'chapterone.bookstoreteam@gmail.com',
+                        pass: 'bookstore'
                     },
                     tls: {rejectUnauthorized:false}  
                 });
                 
                 var mainOptions = { 
-                    from: 'congndps11796@fpt.edu.vn',
+                    from: 'chapterone.bookstoreteam@gmail.com',
                     to: values.email,
                     subject: `Kính gửi Ông/Bà ${values.fullName}.`,
                     text: `Xác nhận Đăng ký Tài khoản`,

@@ -69,6 +69,7 @@ module.exports.detailBySlug = async (req, res, next) => {
 module.exports.create = async (req, res, next) => {
     try {
         let value = req.body;
+        console.log(value);
         value.view = 0;
         if (req.files) {
             value.images = []
@@ -83,6 +84,7 @@ module.exports.create = async (req, res, next) => {
             })
 
         }
+
         const checkIdCata = await CatalogService.getById(value.idCatalog);
 
         if (checkIdCata) {
