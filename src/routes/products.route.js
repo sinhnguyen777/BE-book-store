@@ -14,7 +14,7 @@ router.get('/:id', productsController.GetProductById)
 router.get('/idCata/:id', productsController.getByIdCata);
 router.delete('/del/:id', productsController.delete);
 router.post('/create', upload.array('images'), productsController.create);
-router.put('/update', productsController.update)
+router.put('/update',upload.array('images'), productsController.update)
 router.use('/', productsController.GetAll);
 
 module.exports = router;
