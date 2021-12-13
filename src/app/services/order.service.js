@@ -1,5 +1,23 @@
 const OrderModel = require('../models/orders.model');
 
+exports.getAll = async (filter) => {
+    try {
+
+        if (filter.hasOwnProperty('_sort')) {
+            const Product = await OrderModel.find(filter).sort({
+                [filter.column]: filter.type
+            });
+            return Product
+        }
+
+        const Product = await OrderModel.find(filter);
+        return Product
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
 exports.newOrder = async (value) => {
     try{
         const idUser = value.idUser;
