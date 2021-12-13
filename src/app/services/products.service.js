@@ -114,16 +114,9 @@ exports.createNew = async (values) => {
             images,
             wishlist
         })
-        return newProduct.save((err) => {
-            if (err) {
-                console.log(err)
-                console.log('Add user fail!');
-                return false
-            } else {
-                console.log('Add user success!');
-                return true
-            }
-        })
+        return newProduct.save()
+        .then((res) => {console.log('Add success!'); return res})
+        .catch(error =>{console.log(error); return false;});
     }
     catch (err) {
         console.log(err)
@@ -188,6 +181,10 @@ exports.update = async (id, values) => {
         var images = values.images
     }
 
+    if ( values.statusDebut){
+        var statusDebut = values.statusDebut
+    }
+
     let newProduct ={
         nameProduct,
         idCatalog,
@@ -198,9 +195,9 @@ exports.update = async (id, values) => {
         productHot,
         productSale,
         percentSale,
+        statusDebut,
         images,
     }
-    console.log(newProduct);
     return await ProductModel.updateOne({ _id: id }, newProduct)
         .then((res) => res)
         .catch(error => console.log(error));

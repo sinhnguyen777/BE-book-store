@@ -1,10 +1,11 @@
 const ProductService = require('../services/products.service');
 const CatalogService = require('../services/catalogs.service');
+const moment = require('moment');
 
 module.exports.GetAll = async (req, res, next) => {
     try {
         const filter = req.query
-        
+
         const Products = await ProductService.getAll(filter);
 
         return res.status(200).json({ code: "200", message: "sucsses", data: Products });
@@ -69,7 +70,16 @@ module.exports.detailBySlug = async (req, res, next) => {
 module.exports.create = async (req, res, next) => {
     try {
         let value = req.body;
-        console.log(value);
+        const dateDebut = moment(value.dateDebut, "YYYY-MM-DD");
+        console.log(dateDebut);
+        var today = new Date();
+        console.log(today)
+        if (dateDebut > today) {
+            console.log(1);
+        }
+        if (dateDebut < today) {
+            console.log(2);
+        }
         value.view = 0;
         if (req.files) {
             value.images = []
@@ -88,7 +98,15 @@ module.exports.create = async (req, res, next) => {
         const checkIdCata = await CatalogService.getById(value.idCatalog);
 
         if (checkIdCata) {
-            await ProductService.createNew(value);
+            const res = await ProductService.createNew(value);
+            var today = new Date();
+            if (res.dateDebut > today) {
+                const value = {
+                    statusDebut: true,
+                }
+                const Update = await ProductService.update(res._id, value);
+                return res.status(200).json({ code: "200", message: "sucsses" })
+            }
             return res.status(200).json({ code: "200", message: "sucsses" })
         }
         return res.status(404).json({ code: "404", message: "Catalog not found" });
@@ -125,14 +143,14 @@ module.exports.update = async (req, res, next) => {
                 value.images.push(obj);
             })
         }
-        if(imgOld){
+        if (imgOld) {
             value.images = [...value.images, ...imgOld]
         }
 
         const checkIdCata = await CatalogService.getById(value.idCatalog);
         if (checkIdCata) {
-             const Update =  await ProductService.update(value.id,value);
-            return res.status(200).json({ code: "200", message: "sucsses" ,data :Update})
+            const Update = await ProductService.update(value.id, value);
+            return res.status(200).json({ code: "200", message: "sucsses", data: Update })
         }
         return res.status(404).json({ code: "404", message: "Catalog not found" });
     } catch (err) {
@@ -141,11 +159,11 @@ module.exports.update = async (req, res, next) => {
 
 }
 
-module.exports.GetProductById = async (req,res,next) => {
+module.exports.GetProductById = async (req, res, next) => {
     try {
         const idProductDetail = req.params.id
         const dataProductDetail = await ProductService.getById(idProductDetail)
-        return res.status('200').json({code: '200', message: 'success', data: dataProductDetail})
+        return res.status('200').json({ code: '200', message: 'success', data: dataProductDetail })
     } catch (error) {
         console.log(error);
     }
