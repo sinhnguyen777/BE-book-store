@@ -70,8 +70,6 @@ module.exports.create = async (req, res, next) => {
     try {
         let value = req.body;
         console.log(value);
-        console.log(req.files);
-        console.log(1);
         if (req.files) {
             value.images = []
 
@@ -112,14 +110,31 @@ module.exports.delete = async (req, res, next) => {
 }
 module.exports.update = async (req, res, next) => {
     try {
-        // const id = req.params.id;
-        let values = req.body;
-        console.log(req.body);
-        // await tinhThanhService.update(id, values);
-        // res.redirect('/provinces')
-    }
-    catch (err) {
-        console.log(err)
+        let value = req.body;
+        const imgOld = JSON.parse(value.oldImages)
+        if (req.files) {
+            value.images = []
+
+            req.files.forEach((item, i) => {
+                const obj = {
+                    image: item.path,
+                    positon: i + 1
+                }
+                value.images.push(obj);
+            })
+        }
+        if(imgOld){
+            value.images = [...value.images, ...imgOld]
+        }
+
+        const checkIdCata = await CatalogService.getById(value.idCatalog);
+        if (checkIdCata) {
+             const Update =  await ProductService.update(value.id,value);
+            return res.status(200).json({ code: "200", message: "sucsses" ,data :Update})
+        }
+        return res.status(404).json({ code: "404", message: "Catalog not found" });
+    } catch (err) {
+        console.log(err);
     }
 
 }
