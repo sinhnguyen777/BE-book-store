@@ -9,6 +9,7 @@ const User = new Schema ({
     password:{type:String, required: true},
     address:{type:String},
     avatar:{type:String},
+    vip:{type:String},
 }, {
     timestamps: true,
 });
