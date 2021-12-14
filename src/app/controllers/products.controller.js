@@ -70,22 +70,11 @@ module.exports.detailBySlug = async (req, res, next) => {
 module.exports.create = async (req, res, next) => {
     try {
         let value = req.body;
-        const dateDebut = moment(value.dateDebut, "YYYY-MM-DD");
-        console.log(dateDebut);
-        var today = new Date();
-        console.log(today)
-        if (dateDebut > today) {
-            console.log(1);
-        }
-        if (dateDebut < today) {
-            console.log(2);
-        }
         value.view = 0;
         if (req.files) {
             value.images = []
 
             req.files.forEach((item, i) => {
-                console.log(2);
                 const obj = {
                     image: item.path,
                     positon: i + 1
@@ -98,18 +87,20 @@ module.exports.create = async (req, res, next) => {
         const checkIdCata = await CatalogService.getById(value.idCatalog);
 
         if (checkIdCata) {
-            const res = await ProductService.createNew(value);
+            const SP = await ProductService.createNew(value);
+            console.log(SP);
             var today = new Date();
-            if (res.dateDebut > today) {
+            console.log(SP.dateDebut > today);
+            if (SP.dateDebut > today) {
                 const value = {
                     statusDebut: true,
                 }
-                const Update = await ProductService.update(res._id, value);
-                return res.status(200).json({ code: "200", message: "sucsses" })
+                await ProductService.update(SP._id, value);
+                return res.json({ code: "200", message: "sucsses" })
             }
-            return res.status(200).json({ code: "200", message: "sucsses" })
+            return res.json({ code: "200", message: "sucsses" })
         }
-        return res.status(404).json({ code: "404", message: "Catalog not found" });
+        return res.json({ code: "404", message: "Catalog not found" });
     } catch (err) {
         console.log(err);
     }

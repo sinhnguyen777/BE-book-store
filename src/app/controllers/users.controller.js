@@ -84,6 +84,7 @@ exports.VerifyEmail = async(req,res,next)=>{
     
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, async(err,data)=>{
             if(err) res.sendStatus(403);
+            data.avatar = "uploads/img_avatar.png";
             const addUser = await UserService.createNew(data);
             if(addUser){
                 return res.status(200).json({code:"200",message:"Add user success!"});

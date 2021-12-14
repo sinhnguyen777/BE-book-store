@@ -142,48 +142,17 @@ exports.delete = async (id) => {
 
 exports.update = async (id, values) => {
     const idCatalog = values.idCatalog
-    if (values.nameProduct) {
-        var nameProduct = values.nameProduct
-    }
-    if (values.price) {
-        var price = values.price
-    }
-
-    if (values.description) {
-        var description = values.description
-    } 
-
-    if ( values.author){
-        var author = values.author
-    }
-    
-    if ( values.nxb){
-        var nxb = values.nxb
-    }
-
-    if ( values.productHot){
-        var productHot = values.productHot
-    }
-
-    if ( values.productSale){
-        var productSale = values.productSale
-    }
-
-        if ( values.percentSale){
-        var percentSale = values.percentSale
-    }
-
-    if ( values.quantity){
-        var percentSale = values.quantity
-    }
-
-    if ( values.images){
-        var images = values.images
-    }
-
-    if ( values.statusDebut){
-        var statusDebut = values.statusDebut
-    }
+        const nameProduct = values.nameProduct
+        const price = values.price
+        const description = values.description
+        const author = values.author
+        const nxb = values.nxb
+        const productHot = values.productHot
+        const productSale = values.productSale
+        const percentSale = values.percentSale
+        const quantity = values.quantity
+        const images = values.images
+        const statusDebut = values.statusDebut
 
     let newProduct ={
         nameProduct,
@@ -194,7 +163,7 @@ exports.update = async (id, values) => {
         nxb,
         productHot,
         productSale,
-        percentSale,
+        quantity,
         statusDebut,
         images,
     }

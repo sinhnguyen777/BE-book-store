@@ -41,12 +41,14 @@ exports.createNew = async (values) => {
         const fullName = values.fullName
         const email = values.email
         const password = values.password
+        const avatar = values.avatar
     
         const passwordHashed = bcrypt.hashSync(password, salt);
         let newUser = new UserService({
                 fullName,
                 email,
                 password:passwordHashed,
+                avatar
         })
         return newUser.save()
         .then(() => {console.log('Add user success!'); return true})

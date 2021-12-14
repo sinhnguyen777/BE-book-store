@@ -9,17 +9,7 @@ const User = new Schema ({
     password:{type:String, required: true},
     address:{type:String},
     avatar:{type:String},
-    blockMail:{type:Boolean, default: false},
-    productLove: [
-        {
-            idProduct:{type: mongoose.Schema.Types.ObjectId, ref:'Product'}            
-        }
-    ],
-    listDiscount:  [
-        {
-            idDiscount:{type: mongoose.Schema.Types.ObjectId, ref:'DiscountCode'}            
-        }
-    ],
+    vip:{type:String},
 }, {
     timestamps: true,
 });
