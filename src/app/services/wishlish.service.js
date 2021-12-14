@@ -2,7 +2,7 @@ const wishlishModel = require('../models/wishlish.model');
 
 exports.getAll = async (value) => {
     try{
-        const wishlish = await wishlishModel.find({idUser:value});
+        const wishlish = await wishlishModel.find(value);
         return wishlish
     }
     catch(err){
