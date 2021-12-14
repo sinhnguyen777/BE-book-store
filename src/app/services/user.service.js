@@ -1,96 +1,92 @@
 const UserService = require('../models/users.model');
 
 exports.getAll = async () => {
-    try{
+    try {
         const ListUser = await UserService.find({});
         return ListUser
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
 
 
 exports.getById = async (id) => {
-    try{
+    try {
         const User = await UserService.findById(id);
-        return User    
+        return User
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
 
 exports.getByEmail = async (Email) => {
-    try{
-        const user = await UserService.find({email:Email});
-       if(user){
-           return user
-       }
-       return fales
+    try {
+        const user = await UserService.find({ email: Email });
+        if (user) {
+            return user
+        }
+        return fales
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
 
 exports.createNew = async (values) => {
-    try{
-        const bcrypt = require("bcrypt");      
+    try {
+        const bcrypt = require("bcrypt");
         var salt = bcrypt.genSaltSync(10);
         const fullName = values.fullName
         const email = values.email
         const password = values.password
         const avatar = values.avatar
-    
+        const vip = values.vip
+
         const passwordHashed = bcrypt.hashSync(password, salt);
         let newUser = new UserService({
-                fullName,
-                email,
-                password:passwordHashed,
-                avatar
+            fullName,
+            email,
+            password: passwordHashed,
+            avatar,
+            vip
         })
         return newUser.save()
-        .then(() => {console.log('Add user success!'); return true})
-        .catch(error =>{console.log(error); return false;});
+            .then(() => { console.log('Add user success!'); return true })
+            .catch(error => { console.log(error); return false; });
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 
 }
 
-exports.Login = async (values) =>{
-    try{
-        const { email ,password } = values
-        const user = await UserService.findOne({email:email})
-        if(!user){
-            return {success: false, error:'User not found'}
-        }else {
-            const bcrypt = require("bcrypt");        
+exports.Login = async (values) => {
+    try {
+        const { email, password } = values
+        const user = await UserService.findOne({ email: email })
+        if (!user) {
+            return { success: false, error: 'User not found' }
+        } else {
+            const bcrypt = require("bcrypt");
             const password_db = user.password
             const passwordCompared = bcrypt.compareSync(password, password_db)
-            if(!passwordCompared){
-                return {success: false, error:'Password error'}
-            }else if(user.isActive==false){
-                return {success: false, error:'Account is not active'}
-            }else{
+            if (!passwordCompared) {
+                return { success: false, error: 'Password error' }
+            } else if (user.isActive == false) {
+                return { success: false, error: 'Account is not active' }
+            } else {
                 return user
             }
         }
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
-
-// (err) => {
-//     if(err){
-//         console.log(err)
-//         console.log('Add user fail!');
-//         return false;
-//     }else{
-//         console.log('Add user success!');
-//         return true;
-//     }
-// }
+exports.update = async (id, values) => {
+    return await UserService.updateOne({ _id: id }, values)
+       .then(() => true)
+       .catch(error => false);
+}
