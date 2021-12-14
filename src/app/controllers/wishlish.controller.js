@@ -4,7 +4,8 @@ const UserService = require('../services/user.service');
 
 module.exports.GetAll = async (req,res,next)=>{
     try{
-        const wishlish = await WishlishService.getAll(req.body.idUser);
+        const filter = req.query
+        const wishlish = await WishlishService.getAll(filter);
         
         return res.status(200).json({code:"200",message:"sucsses",data:wishlish});
         
