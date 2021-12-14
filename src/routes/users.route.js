@@ -10,6 +10,7 @@ router.post('/register', usersController.Register);
 router.post('/verify-email', usersController.VerifyEmail);
 router.get('/:id', usersController.getUserById);
 router.get('/', usersController.getAll);
+router.put('/edit', usersController.changeInfor);
 
 
 module.exports = router;

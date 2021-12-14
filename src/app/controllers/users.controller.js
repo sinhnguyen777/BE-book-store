@@ -22,6 +22,18 @@ exports.getUserById = async (req,res,next)=>{
     }
 }
 
+exports.changeInfor = async (req,res,next)=>{
+    try{    
+        const {id} = req.body;
+        const values = req.body;
+         await UserService.update(id, values );
+        return res.status(200).json({code:"200",message:"sucsses"});
+    }catch(err){
+        res.send(err)
+        // console.log(err);
+    }
+}
+
 exports.Register = async(req,res,next)=>{
     try{
         const values = req.body;
@@ -84,7 +96,9 @@ exports.VerifyEmail = async(req,res,next)=>{
     
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, async(err,data)=>{
             if(err) res.sendStatus(403);
+            const today = new Date();
             data.avatar = "uploads/img_avatar.png";
+            data.vip = today;
             const addUser = await UserService.createNew(data);
             if(addUser){
                 return res.status(200).json({code:"200",message:"Add user success!"});
