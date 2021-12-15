@@ -23,6 +23,10 @@ module.exports.create = async(req,res,next)=>{
         if(!checkIdProduct){
             return res.json({code :"404", message:"Sản phẩm không tồn tại"})
         }
+        const checkExist = await WishlishService.getAll(value);
+        if(checkExist[0]){
+            return res.json({code:"404",message:"Sản Phẩm đã có trong danh sách"})
+        }
         const checkIdUser = await UserService.getById(value.idUser);
         if(!checkIdUser){
             return res.json({code:"404",message:"Id người dùng không tồn tại"})
@@ -36,8 +40,8 @@ module.exports.create = async(req,res,next)=>{
 
 module.exports.delete = async(req,res,next)=>{
     try{
-        const id = req.body.id;
-        const value = req.body;
+        const value = req.query;
+        const id = value.id
         const checkIdUser = await UserService.getById(value.idUser);
         if(!checkIdUser){
             return res.json({code :"404", message:"Bạn Không Thể Xóa Sản Phẩm Trong Danh Sách Không Phải Của Mình"})
