@@ -1,5 +1,6 @@
 const UserService = require('../services/user.service');
 const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
 dotenv.config();
 
 exports.getAll = async (req,res,next)=>{
@@ -11,6 +12,26 @@ exports.getAll = async (req,res,next)=>{
         // console.log(err);
     }
 }
+
+exports.AccessToken = async (req, res, next) => {
+    try{
+        const { token } = req.body;
+        if(token){
+            const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+            if(check.email){
+                res.status(200).json({status:200 ,message:"token access",data:check});
+            }else {
+                return res.status(401).json({status:401,message:"token expired"});
+            }
+        }else{
+            return res.status(401).json({status:401,message:"token expired"});
+        }
+    }catch(err){
+        console.log(err);
+        return res.status(405).json({status:405,message:"Token verify failed"});
+    }
+}
+
 exports.getUserById = async (req,res,next)=>{
     try{    
         const id = req.params.id;
