@@ -7,8 +7,7 @@ const User = new Schema ({
     email:{type:String,required: true},
     phone:{type:Number},
     password:{type:String, required: true},
-    address:{type:String},
-    avatar:{type:String},
+    avatar:{type:String, default:'uploads/img_avatar.png'},
     vip:{type:Date},
 }, {
     timestamps: true,
