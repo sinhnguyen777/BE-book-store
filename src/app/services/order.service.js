@@ -18,6 +18,21 @@ exports.getAll = async (filter) => {
     }
 }
 
+exports.getById = async (id) => {
+    try{
+        const Order = await OrderModel.findById(id);
+        if(!Order){
+            return false
+        }
+        return Order    
+    }
+    catch(err){
+        // console.log(err);
+        return false
+
+    }
+}
+
 exports.newOrder = async (value) => {
     try{
         const idUser = value.idUser;
