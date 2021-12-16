@@ -27,7 +27,7 @@ exports.newOrder = async (value) => {
 
 exports.getOrderByID = async (id) => {
     try{
-        const Order = await OrderModel.findById(id);
+        const Order = await OrderDetailModel.find({idOrder:id});
         if(!Order){
             return false
         }
@@ -39,21 +39,13 @@ exports.getOrderByID = async (id) => {
     }
 }
 
-exports.confirmOrder = async (id) => {
-    try{
-          
+exports.getAll = async (filter) => {
+    try {
+        const Order = await OrderDetailModel.find(filter);
+        return Order
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
-}
-
-exports.cancelOrder = async (values) => {
-    try{
-    }
-    catch(err){
-        console.log(err)
-    }
-
 }
 
