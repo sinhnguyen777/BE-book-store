@@ -1,8 +1,8 @@
 const UserService = require('../models/users.model');
 
-exports.getAll = async () => {
+exports.getAll = async (filter) => {
     try {
-        const ListUser = await UserService.find({});
+        const ListUser = await UserService.find(filter);
         return ListUser
     }
     catch (err) {
