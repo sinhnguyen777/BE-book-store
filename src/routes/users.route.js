@@ -11,6 +11,8 @@ router.post('/verify-email', usersController.VerifyEmail);
 router.get('/:id', usersController.getUserById);
 router.get('/', usersController.getAll);
 router.put('/edit', usersController.changeInfor);
+router.post('/access-token', usersController.AccessToken);
+
 
 
 module.exports = router;
