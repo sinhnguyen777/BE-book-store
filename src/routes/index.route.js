@@ -14,6 +14,7 @@ const wishlishRouter = require('./wishlish.router')
 const chaptersRouter = require('./chapter.route');
 const vipsRouter = require('./vip.route');
 const commentsRouter = require('./comment.router');
+const statisticalRouter = require('./statistical/statistical.roter')
 
 
 function route(app) {
@@ -37,6 +38,7 @@ function route(app) {
     app.use('/products', productsRouter);
     app.use('/catalogs', catalogsRouter);
     app.use('/pay', checkoutRouter);
+    app.use('/statistical', statisticalRouter);
 }
 
 module.exports = route;

@@ -2,6 +2,18 @@ const AdminService = require('../services/admin.service');
 const RoleService = require('../services/role.service');
 const jwt = require('jsonwebtoken');
 
+module.exports.GetAll = async (req,res,next)=>{
+    try{
+        const filter = req.query
+        const Admin = await AdminService.getAll(filter);
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:Admin});
+            }catch(err){
+        console.log(err);
+    }
+}
+
+
 exports.Register = async (req, res, next) => {
     try {
         const values = req.body;

@@ -1,8 +1,8 @@
 const AdminService = require('../models/admins.model');
 
-exports.getAll = async () => {
+exports.getAll = async (filter) => {
     try{
-        const ListAdmin = await AdminService.find({});
+        const ListAdmin = await AdminService.find(filter);
         return ListAdmin
     }
     catch(err){
