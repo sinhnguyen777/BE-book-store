@@ -78,3 +78,32 @@ exports.update = async (id, values) => {
        .then(() => true)
        .catch(error => false);
 }
+exports.newCoupon = async (id, values) => {
+    try{
+        const idUser = values.idUser
+        const code = values.code
+        const percent = values.percent
+        const dateStart = values.dateStart
+        const dateEnd = values.dateEnd
+        const status = values.status
+        let newCata = new discountCodeModel({
+            idUser,
+            code,
+            percent,
+            dateStart,
+            dateEnd,
+            status,
+        })
+        return newCata.save((err) => {
+            if(err){
+                console.log(err)
+                console.log('Add discountCode fail!');
+            }else{
+                console.log('Add discountCode success!');
+            }
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
+}

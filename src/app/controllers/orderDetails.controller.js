@@ -17,19 +17,10 @@ module.exports.NewOrderDetail = async (req,res,next)=>{
 
 module.exports.GetId = async (req, res, next) => {
     try {
-        const id = req.params.id
-        
-        console.log(1)
-        
-        const Order = await OrderDetailService.getOrderByID(id);
-        let newOrder = []
-        await Order.map( async (item)=>{
-            let newOrder = {}
-            const dataProductDetail = await ProductService.getById(item.idProduct)
-              newItem= await {...item,...dataProductDetail}
-            await newOrder.push(newItem)
-        })
-        return res.status(200).json({ code: "200", message: "sucsse", data: newOrder });
+        const filter = req.query
+                
+        const Order = await OrderDetailService.getOrderByID(filter);
+        return res.status(200).json({ code: "200", message: "sucsse", data: Order });
 
         // res.status(404).json({code:"404",message:"fail"});
     } catch (err) {

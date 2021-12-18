@@ -33,3 +33,24 @@ exports.getAllOrderWeek = async () => {
         console.log(err)
     }
 }
+
+exports.GetAllrevenue = async () => {
+    try {
+        const Order = await OrderDetailModel.aggregate(
+            [
+              {
+                $group:
+                  {
+                    _id: null ,
+                    totalAmount: { $sum: { $multiply: [ "$price", "$quantity" ] } },
+                    count: { $sum: 1 }
+                  }
+              }
+            ]
+         )
+        return Order;
+    }
+    catch (err) {
+        console.log(err)
+    }
+}

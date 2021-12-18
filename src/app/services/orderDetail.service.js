@@ -25,9 +25,9 @@ exports.newOrder = async (value) => {
     }
 }
 
-exports.getOrderByID = async (id) => {
+exports.getOrderByID = async (filter) => {
     try{
-        const Order = await OrderDetailModel.find({idOrder:id});
+        const Order = await OrderDetailModel.find(filter);
         if(!Order){
             return false
         }
