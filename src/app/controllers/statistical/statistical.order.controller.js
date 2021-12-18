@@ -25,3 +25,15 @@ module.exports.GetAllByDate = async (req,res,next)=>{
     }
 }
 
+
+module.exports.GetAllrevenue = async (req,res,next)=>{
+    try{
+        const Order = await StatisticalModel.GetAllrevenue();
+        
+        return res.status(200).json({code:"200",message:"sucsses",data:Order});
+        
+    }catch(err){
+        console.log(err);
+    }
+}
+

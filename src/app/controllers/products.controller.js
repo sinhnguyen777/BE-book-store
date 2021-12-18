@@ -16,6 +16,19 @@ module.exports.GetAll = async (req, res, next) => {
     }
 }
 
+module.exports.GetSelling = async (req, res, next) => {
+    try {
+
+        const Products = await ProductService.getAllSelling();
+
+        return res.status(200).json({ code: "200", message: "sucsses", data: Products });
+
+        // res.status(404).json({code:"404",message:"fail"});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports.SearchName = async (req, res, next) => {
     try {
         const search = req.query.nameProduct;
@@ -88,9 +101,7 @@ module.exports.create = async (req, res, next) => {
 
         if (checkIdCata) {
             const SP = await ProductService.createNew(value);
-            console.log(SP);
             var today = new Date();
-            console.log(SP.dateDebut > today);
             if (SP.dateDebut > today) {
                 const value = {
                     statusDebut: true,
