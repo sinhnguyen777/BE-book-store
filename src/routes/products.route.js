@@ -12,9 +12,9 @@ router.get('/searchName', productsController.SearchName);
 router.get('/slug/:slug', productsController.detailBySlug);
 router.get('/:id', productsController.GetProductById)
 router.get('/idCata/:id', productsController.getByIdCata);
-router.delete('/del/:id', productsController.delete);
-router.post('/create', upload.array('images'), productsController.create);
-router.put('/update',upload.array('images'), productsController.update)
+router.delete('/del/:id',middlewares.checkAuthencation,middlewares.checkRoleDelProduct, productsController.delete);
+router.post('/create',middlewares.checkAuthencation,middlewares.checkRoleAddProduct, upload.array('images'), productsController.create);
+router.put('/update',middlewares.checkAuthencation,middlewares.checkRoleUpdateProduct,upload.array('images'), productsController.update)
 router.use('/', productsController.GetAll);
 
 module.exports = router;

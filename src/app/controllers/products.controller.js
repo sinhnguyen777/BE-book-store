@@ -88,9 +88,7 @@ module.exports.create = async (req, res, next) => {
 
         if (checkIdCata) {
             const SP = await ProductService.createNew(value);
-            console.log(SP);
             var today = new Date();
-            console.log(SP.dateDebut > today);
             if (SP.dateDebut > today) {
                 const value = {
                     statusDebut: true,
