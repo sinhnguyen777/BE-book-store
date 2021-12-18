@@ -6,7 +6,7 @@ const upload = require("../app/middleware/upload");
 const { removeListener } = require('../app/models/products.model');
 const middlewares = require('../app/middleware/authencation')
 
-
+router.use('/selling', productsController.GetSelling);
 router.get('/searchAuthor', productsController.SearchAuthor);
 router.get('/searchName', productsController.SearchName);
 router.get('/slug/:slug', productsController.detailBySlug);
