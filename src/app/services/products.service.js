@@ -1,3 +1,4 @@
+const orderDetailsModel = require('../models/orderDetails.model');
 const ProductModel = require('../models/products.model');
 
 exports.getAll = async (filter) => {
@@ -12,6 +13,27 @@ exports.getAll = async (filter) => {
 
         const Product = await ProductModel.find(filter);
         return Product
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+exports.getAllSelling = async (filter) => {
+    try {
+
+        const Product = await orderDetailsModel.aggregate(
+            [
+              {
+                $group:
+                  {
+                    _id: "$idProduct" ,
+                    count: { $sum: 1 }
+                  }
+              }
+            ]
+         )
+        return Product;
     }
     catch (err) {
         console.log(err)
