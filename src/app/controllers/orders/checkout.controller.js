@@ -8,40 +8,31 @@ exports.CheckoutPaypal = (req, res, next) => {
         'client_secret': 'EDmJolIfBdufyq2cOBzGZ5ojph8YrPFx883lmCWM_ntYsvfqouWRJj6X9B5g6fAZHoIjxgYadCKQL1xX'
     })
 
-    const arrayList = []
-
-    const itemCarts = {
-        name: req.body.nameCart,
-        sku: req.body.sku,
-        price: req.body.priceItemCart,
-        currency: req.body.currency,
-        quantity: req.body.quantity
+    const itemCart = {
+        name: req.body.name,
+        price: req.body.price,
+        currency: "USD",
+        quantity: 1,
     }
-
-    if (arrayList.length >= 0) {
-        arrayList.push(itemCarts)
-    }
-    const total = itemCarts.price * itemCarts.quantity
-    console.log(total);
-
+    
     const create_payment_json = {
         "intent": "sale",
         "payer": {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success",
-            "cancel_url": "http://localhost:3000/cancel"
+            "return_url": "https://beonlinelibrary.herokuapp.com/success",
+            "cancel_url": "https://beonlinelibrary.herokuapp.com/cancel"
         },
         "transactions": [{
             "item_list": {
-                "items": arrayList
+                "items": [itemCart]
             },
             "amount": {
                 "currency": "USD",
-                "total": total
+                "total": itemCart.price
             },
-            "description": "Hat for the best team ever"
+            "description": "Washing Bar soap"
         }]
     };
 
