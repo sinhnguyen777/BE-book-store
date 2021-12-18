@@ -30,8 +30,8 @@ exports.CheckoutPaypal = (req, res, next) => {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success",
-            "cancel_url": "http://localhost:3000/cancel"
+            "return_url": "https://beonlinelibrary.herokuapp.com/success",
+            "cancel_url": "https://beonlinelibrary.herokuapp.com/cancel"
         },
         "transactions": [{
             "item_list": {
