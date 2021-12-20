@@ -39,6 +39,7 @@ function route(app) {
     app.use('/catalogs', catalogsRouter);
     app.use('/pay', checkoutRouter);
     app.use('/statistical', statisticalRouter);
+
 }
 
 module.exports = route;
