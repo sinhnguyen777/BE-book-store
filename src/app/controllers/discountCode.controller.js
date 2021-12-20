@@ -59,6 +59,13 @@ module.exports.getByIdDiscount = async (req, res, next) => {
 module.exports.create = async (req, res, next) => {
   try {
     let value = req.body;
+     const filter = {
+      code: value.code,
+    };
+    const checkNameCata = await DiscountCodeService.getAll(filter);
+    if (checkNameCata.length > 0) {
+      return res.json({ code: 404, message: "Mã giảm giá Đã Tồn Tại" });
+    }
     await DiscountCodeService.createNew(value);
     res.status(200).json({ code: "200", message: "sucsses" });
   } catch (err) {
