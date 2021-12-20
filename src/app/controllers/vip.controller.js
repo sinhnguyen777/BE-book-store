@@ -28,6 +28,13 @@ module.exports.getByIdCata = async (req,res,next)=>{
 module.exports.create = async(req,res,next)=>{
     try{
         let value = req.body
+        const filter = {
+            name: value.name,
+          };
+          const checkNameCata = await VipService.getAll(filter);
+          if (checkNameCata.length > 0) {
+            return res.json({ code: 404, message: "Tên Danh Mục Đã Tồn Tại" });
+          }
         await VipService.createNew(value);
         res.status(200).json({code:"200",message:"sucsses"});
         }catch(err){

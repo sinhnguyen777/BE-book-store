@@ -1,8 +1,8 @@
 const vipModel = require('../models/vip.model');
 
-exports.getAll = async () => {
+exports.getAll = async (filter) => {
     try{
-        const Cata = await vipModel.find({});
+        const Cata = await vipModel.find(filter);
         return Cata
     }
     catch(err){
