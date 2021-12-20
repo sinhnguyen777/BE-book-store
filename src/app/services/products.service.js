@@ -24,15 +24,45 @@ exports.getAllSelling = async (filter) => {
 
         const Product = await orderDetailsModel.aggregate(
             [
-              {
-                $group:
-                  {
-                    _id: "$idProduct" ,
-                    count: { $sum: 1 }
-                  }
-              }
+                {
+                    $group:
+                    {
+                        _id: "$idProduct",
+                        count: { $sum: 1 }
+                    }
+                }
             ]
-         )
+        )
+        return Product;
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+exports.GetAllUserSell = async (filter) => {
+    try {
+
+        const Product = await orderDetailsModel.aggregate(
+            [
+                {
+                    $lookup:
+                    {
+                        from: 'users',
+                        localField: 'idUser',
+                        foreignField: '_id',
+                        as: 'Users',
+                    }
+                },
+                {
+                    $group:
+                    {
+                        _id:"$Users",
+                        "Total":{$sum:"$quantity"},
+                    }
+                }
+            ]
+        )
         return Product;
     }
     catch (err) {
@@ -63,6 +93,7 @@ exports.getAuthorSearch = async (authors) => {
 }
 
 exports.getById = async (id) => {
+    console.log(id);
     try {
         const Product = await ProductModel.findById(id);
         if (Product) {
@@ -137,8 +168,8 @@ exports.createNew = async (values) => {
             wishlist
         })
         return newProduct.save()
-        .then((res) => {console.log('Add success!'); return res})
-        .catch(error =>{console.log(error); return false;});
+            .then((res) => { console.log('Add success!'); return res })
+            .catch(error => { console.log(error); return false; });
     }
     catch (err) {
         console.log(err)
@@ -164,19 +195,19 @@ exports.delete = async (id) => {
 
 exports.update = async (id, values) => {
     const idCatalog = values.idCatalog
-        const nameProduct = values.nameProduct
-        const price = values.price
-        const description = values.description
-        const author = values.author
-        const nxb = values.nxb
-        const productHot = values.productHot
-        const productSale = values.productSale
-        const percentSale = values.percentSale
-        const quantity = values.quantity
-        const images = values.images
-        const statusDebut = values.statusDebut
+    const nameProduct = values.nameProduct
+    const price = values.price
+    const description = values.description
+    const author = values.author
+    const nxb = values.nxb
+    const productHot = values.productHot
+    const productSale = values.productSale
+    const percentSale = values.percentSale
+    const quantity = values.quantity
+    const images = values.images
+    const statusDebut = values.statusDebut
 
-    let newProduct ={
+    let newProduct = {
         nameProduct,
         idCatalog,
         price,

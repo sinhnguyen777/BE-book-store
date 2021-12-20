@@ -9,6 +9,7 @@ router.delete('/del/:id',middlewares.checkAuthencation,middlewares.checkRoleDelD
 router.put('/edit',middlewares.checkAuthencation,middlewares.checkRoleUpdateDiscount, discountCodeController.update);
 router.post('/create',middlewares.checkAuthencation,middlewares.checkRoleAddDiscount, discountCodeController.create);
 router.get('/:id', discountCodeController.getByIdDiscount);
+router.post('/check-coupon', discountCodeController.checkCoupon);
 router.get('/', discountCodeController.GetAll);
 
 
