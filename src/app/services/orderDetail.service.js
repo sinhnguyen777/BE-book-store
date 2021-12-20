@@ -16,7 +16,7 @@ exports.newOrder = async (value) => {
             price,
         })
         return newValue.save()
-        .then(() => {console.log('Add order success!'); return true})
+        .then((res) => {return res})
         .catch(error =>{console.log(error); return false;});
 
     }
