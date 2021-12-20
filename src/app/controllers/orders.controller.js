@@ -7,7 +7,7 @@ const UserService = require('../services/user.service');
 module.exports.GetAll = async (req, res, next) => {
     try {
         const filter = req.query
-        
+
         const Order = await OrderService.getAll(filter);
 
         return res.status(200).json({ code: "200", message: "sucsse", data: Order });
@@ -20,7 +20,7 @@ module.exports.GetAll = async (req, res, next) => {
 
 module.exports.GetById = async (req, res, next) => {
     try {
-        const id  = req.params.id;
+        const id = req.params.id;
         console.log(id)
         const Order = await OrderService.getById(id);
         return res.status(200).json({ code: "200", message: "sucsse", data: Order });
@@ -221,14 +221,16 @@ module.exports.NewOrder = async (req, res, next) => {
                             quantity: item.quantity,
                             price: item.price,
                         }
-                        await OrderDetailService.newOrder(newValue)
+                        const order =  await OrderDetailService.newOrder(newValue)
+                        console.log(order);
+                        return res.status(200).json({ code: "200", message: "sucsses",data:order })
+
                     }
                 });
             }
         }
 
 
-        return res.status(200).json({ code: "200", message: "sucsses" })
 
         // return res.status(200).json({code:"200",message:"sucsses"});
 
@@ -288,7 +290,7 @@ module.exports.verifyOrder = async (req, res, next) => {
                 }
                 const UpdateOrder = await OrderService.update(decode.idOrder, value);
                 if (UpdateOrder) {
-                    return res.status(200).json({ code: 200, message: "Xác thực thành công",id:decode.idOrder })
+                    return res.status(200).json({ code: 200, message: "Xác thực thành công", id: decode.idOrder })
                 }
                 return res.status(401).json({ code: 401, message: "Xác thực thất bại" })
             }
