@@ -42,7 +42,8 @@ exports.PaymentPaypal = (req, res, next) => {
         } else {
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
-                    res.redirect(payment.links[i].href);
+                    // res.redirect(payment.links[i].href);
+                    res.json({ forwardLink: payment.links[i].href });
                 }
             }
         }
