@@ -1,6 +1,6 @@
 const paypal = require('paypal-rest-sdk');
 
-exports.CheckoutPaypal = (req, res, next) => {
+exports.PaymentPaypal = (req, res, next) => {
 
     paypal.configure({
         'mode': 'sandbox', //sandbox or live

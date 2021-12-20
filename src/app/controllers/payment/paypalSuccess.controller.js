@@ -4,6 +4,8 @@ exports.PaypalSuccess = (req, res, next) => {
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
 
+    console.log(payerId, paymentId);
+
     const execute_payment_json = {
         "payer_id": payerId,
         "transactions": [{
