@@ -15,6 +15,29 @@ module.exports.GetAll = async (req, res, next) => {
   }
 };
 
+module.exports.checkCoupon = async (req, res, next) => {
+  try {
+    const filter = {
+      code : req.body.code,
+    }
+    const Catalogs = await DiscountCodeService.getAll(filter);
+    if(Catalogs[0]){
+      return res
+      .status(200)
+      .json({ code: "200", message: "sucsses", data: Catalogs });
+    }else{
+      return res
+      .status(404)
+      .json({ code: "404", message: "code not found"});
+
+    }
+    
+    // res.status(404).json({code:"404",message:"fail"});
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports.getByIdDiscount = async (req, res, next) => {
   try {
     const id = req.params.id;

@@ -1,8 +1,8 @@
 const discountCodeModel = require('../models/discountCode.model');
 
-exports.getAll = async () => {
+exports.getAll = async (filter) => {
     try{
-        const Cata = await discountCodeModel.find({});
+        const Cata = await discountCodeModel.find(filter);
         return Cata
     }
     catch(err){

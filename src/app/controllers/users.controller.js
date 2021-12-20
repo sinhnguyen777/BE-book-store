@@ -56,7 +56,7 @@ exports.changeInfor = async (req, res, next) => {
     const { id } = req.body;
     const values = req.body;
     console.log(values)
-    // await UserService.update(id, values);
+    await UserService.update(id, values);
     return res.status(200).json({ code: "200", message: "sucsses",data:values});
   } catch (err) {
     res.send(err);

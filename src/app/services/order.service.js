@@ -98,7 +98,7 @@ exports.cancelOrder = async (values) => {
 
 exports.update = async (id, values) => {
     return await OrderModel.updateOne({ _id: id }, values)
-     .then(() => true)
+     .then((res) => res)
      .catch(error => false);
 }
 
