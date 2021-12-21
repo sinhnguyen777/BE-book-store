@@ -271,7 +271,7 @@ exports.Login = async (req, res, next) => {
         { email: user.email },
         process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn: "30m",
+          expiresIn: "24h",
         },
         (err, token) => {
           if (err) {
