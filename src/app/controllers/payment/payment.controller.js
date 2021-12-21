@@ -1,5 +1,5 @@
 const paypal = require('paypal-rest-sdk');
-
+const GetItemCart = require('./paypalSuccess.controller')
 exports.PaymentPaypal = (req, res, next) => {
 
     paypal.configure({
@@ -9,24 +9,32 @@ exports.PaymentPaypal = (req, res, next) => {
     })
 
     const itemCart = {
+        id: req.body.id,
         name: req.body.name,
         price: req.body.price,
         currency: "USD",
         quantity: 1,
     }
-    
+
+    GetItemCart.GetItemCart(itemCart)
+
     const create_payment_json = {
         "intent": "sale",
         "payer": {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "https://beonlinelibrary.herokuapp.com/success",
-            "cancel_url": "https://beonlinelibrary.herokuapp.com/cancel"
+            "return_url": "http://localhost:3000/side/congratulation",
+            "cancel_url": "http://localhost:3000"
         },
         "transactions": [{
             "item_list": {
-                "items": [itemCart]
+                "items": [{
+                    "name": itemCart.name,
+                    "price": itemCart.price,
+                    "currency": itemCart.currency,
+                    "quantity": itemCart.quantity
+                }]
             },
             "amount": {
                 "currency": "USD",
@@ -38,6 +46,7 @@ exports.PaymentPaypal = (req, res, next) => {
 
     paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
+            console.log(error);
             throw error;
         } else {
             for (let i = 0; i < payment.links.length; i++) {
