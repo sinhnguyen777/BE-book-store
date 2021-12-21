@@ -57,7 +57,7 @@ exports.changeInfor = async (req, res, next) => {
     const values = req.body;
     console.log(values)
     await UserService.update(id, values);
-    return res.status(200).json({ code: "200", message: "sucsses",data:values});
+    return res.status(200).json({ code: "200", message: "sucsses", data: values });
   } catch (err) {
     res.send(err);
     // console.log(err);
@@ -241,18 +241,18 @@ exports.VerifyEmail = async (req, res, next) => {
       const today = new Date();
       data.vip = today;
       data.avatar = `uploads/img_avatar.png`;
-      const filter ={
-          email:data.email
+      const filter = {
+        email: data.email
       }
       const checkUser = await UserService.getAll(filter);
-      if (checkUser.length>0) {
+      if (checkUser.length > 0) {
         return res.json({ code: "404", message: "Tài Khoản Đã Được Xác Thực" });
       }
       const addUser = await UserService.createNew(data);
       if (addUser) {
         return res
           .status(200)
-          .json({ code: "200", message: "Add user success!",data:data });
+          .json({ code: "200", message: "Add user success!", data: data });
       }
       return res.status(404).json({ code: "404", message: "Add user fail!" });
     });
@@ -287,5 +287,64 @@ exports.Login = async (req, res, next) => {
   } catch (error) {
     // console.log(error);
     res.send(err);
+  }
+};
+
+
+exports.LoginGG = async (req, res, next) => {
+  try {
+    const jwt = require("jsonwebtoken");
+    let values = req.body;
+    const filter = {
+      email: values.email
+    }
+    const checkUser = await UserService.getAll(filter);
+
+    if (!checkUser[0]) {
+      const today = new Date();
+      const data = {
+        fullName: values.fullName,
+        password: '12345678',
+        email: values.email,
+        vip: today,
+        avatar: `uploads/img_avatar.png`
+      }
+      const addUser = await UserService.createNew(data);
+      if(addUser){
+        const token = jwt.sign(
+          { email: checkUser[0].email },
+          process.env.ACCESS_TOKEN_SECRET,
+          {
+            expiresIn: "1d",
+          },
+          (err, token) => {
+            if (err) {
+              console.log("Token sign failed");
+            } else {
+              return res.json({ data: [checkUser[0]], token: token });
+            }
+          }
+        );
+      }
+      return res.json({ code: 404 , message:"Đăng ký Thất Bại" });
+    } else {
+      const token = jwt.sign(
+        { email: checkUser[0].email },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: "1d",
+        },
+        (err, token) => {
+          if (err) {
+            console.log("Token sign failed");
+          } else {
+            return res.json({ data: [checkUser[0]], token: token });
+          }
+        }
+      );
+    }
+  } catch (error) {
+    // console.log(error);
+    res.status(404).json({code:404 , message:"err"});
   }
 };
