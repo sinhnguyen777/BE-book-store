@@ -8,6 +8,7 @@ const upload = require("../app/middleware/upload");
 // router.delete('/del/:id', usersController.delete);
 // router.put('/edit/:id', usersController.update);
 router.post('/login', usersController.Login);
+router.post('/login-gg', usersController.LoginGG);
 router.post('/register', usersController.Register);
 router.post('/verify-email', usersController.VerifyEmail);
 router.get('/:id', usersController.getUserById);
