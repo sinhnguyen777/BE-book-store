@@ -25,12 +25,25 @@ exports.getAllSelling = async (filter) => {
         const Product = await orderDetailsModel.aggregate(
             [
                 {
+                    $lookup:
+                    {
+                        from: 'products',
+                        localField: 'idProduct',
+                        foreignField: '_id',
+                        as: 'Products',
+                    }
+                },
+                {
                     $group:
                     {
-                        _id: "$idProduct",
-                        count: { $sum: 1 }
+                        _id: "$Products",
+                        "Total": { $sum: "$quantity" },
                     }
                 }
+                ,
+                { $sort: { Total: -1 } }
+                ,
+                { $limit: 5 }
             ]
         )
         return Product;
@@ -57,8 +70,8 @@ exports.GetAllUserSell = async (filter) => {
                 {
                     $group:
                     {
-                        _id:"$Users",
-                        "Total":{$sum:"$quantity"},
+                        _id: "$Users",
+                        "Total": { $sum: "$quantity" },
                     }
                 }
             ]
