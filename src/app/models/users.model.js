@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const User = new Schema ({
     fullName:{type: String},
     email:{type:String,required: true},
-    phone:{type:Number},
+    phone:{type:String},
     password:{type:String, required: true},
     avatar:{type:String, default:'uploads/img_avatar.png'},
     vip:{type:Date},
