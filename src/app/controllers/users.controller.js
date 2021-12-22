@@ -1,4 +1,5 @@
 const UserService = require("../services/user.service");
+const OrderDetailService = require('../services/orderDetail.service');
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 dotenv.config();
@@ -25,6 +26,18 @@ exports.AccessToken = async (req, res, next) => {
       };
       const getUser = await UserService.getAll(filter);
       check.vip = getUser[0].vip
+      if(req.body.idProduct){
+        const filter = {
+          idUser:getUser._id,
+          idProduct:req.body.idProduct
+        }
+        const checkCart = await OrderDetailService.getAll(filter);
+        if(checkCart.length){
+          check.sell = true;
+        }else{
+          check.sell = false
+        }
+      }
       if (check.email) {
         res
           .status(200)

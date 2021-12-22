@@ -2,6 +2,8 @@ const OrderService = require('../services/order.service');
 const ProductService = require('../services/products.service');
 const OrderDetailService = require('../services/orderDetail.service');
 const UserService = require('../services/user.service');
+const DiscountCodeService = require("../services/discountCode.service");
+
 
 
 module.exports.GetAll = async (req, res, next) => {
@@ -202,14 +204,12 @@ module.exports.NewOrder = async (req, res, next) => {
                                 console.log(err);
                                 console.log(`can't send mail`);
                             } else {
-                                console.log({ code: "200", 'Message sent: ': info.response })
+                                return res.json({ code: "200", 'Message sent: ': info.response })
                             }
                         });
                     }
                 })
             }
-
-
         }
         else {
             const Order = await OrderService.newOrder(value);
@@ -228,7 +228,6 @@ module.exports.NewOrder = async (req, res, next) => {
                         const order = await OrderDetailService.newOrder(newValue)
                         console.log(order);
                         return res.status(200).json({ code: "200", message: "sucsses", data: order })
-
                     }
                 });
             }
