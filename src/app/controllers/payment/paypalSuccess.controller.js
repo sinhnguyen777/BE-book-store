@@ -6,10 +6,10 @@ exports.GetItemCart = async (values) => {
 }
 
 exports.PaypalSuccess = (req, res, next) => {
-    const payerId = req.query.PayerID;
-    const paymentId = req.query.paymentId;
+    const payerId = req.params.PayerID;
+    const paymentId = req.params.paymentId;
 
-    console.log(payerId, paymentId);
+    // console.log(payerId, paymentId);
 
     const execute_payment_json = {
         "payer_id": payerId,
@@ -27,10 +27,10 @@ exports.PaypalSuccess = (req, res, next) => {
         // } else {
         //     console.log(JSON.stringify(payment));
         //     res.send('Success');
-            
+
         //     }
-            return res
-                .status(200)
-                .json({ code: "200", message: "sucsses", data: dataValues });
+        return res
+            .status(200)
+            .json({ code: "200", message: "sucsses", data: dataValues });
     });
 }
