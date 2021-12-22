@@ -312,3 +312,75 @@ module.exports.checkRoleConfirmOrder = async function (req, res, next) {
     // return res.redirect('/users/login')
   }
 };
+module.exports.checkRoleUpdateChapter = async function (req, res, next) {
+  try {
+    const token = req.headers["authorization"];
+    if (token) {
+      const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const checkRole = await RoleService.getPermission(check.idRole);
+      // đổi id
+      const getPermission = checkRole.listPermissions.filter(
+        (item) => item.idPermissions == "61c20eed15b6ec8e20c3ac3d"
+      );
+      console.log(getPermission[0].status);
+      if (getPermission[0].status) {
+        return next();
+      }
+      return res.json({ status: 403, message: "not authorization" });
+    } else {
+      return res.send("not token");
+    }
+  } catch (err) {
+    console.log(err);
+    return res.json({ status: 405, message: "Token verify failed" });
+    // return res.redirect('/users/login')
+  }
+};
+module.exports.checkRoleAddChapter = async function (req, res, next) {
+  try {
+    const token = req.headers["authorization"];
+    if (token) {
+      const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const checkRole = await RoleService.getPermission(check.idRole);
+      // đổi id
+      const getPermission = checkRole.listPermissions.filter(
+        (item) => item.idPermissions == "61c20ee115b6ec8e20c3ac0a"
+      );
+      console.log(getPermission[0].status);
+      if (getPermission[0].status) {
+        return next();
+      }
+      return res.json({ status: 403, message: "not authorization" });
+    } else {
+      return res.send("not token");
+    }
+  } catch (err) {
+    console.log(err);
+    return res.json({ status: 405, message: "Token verify failed" });
+    // return res.redirect('/users/login')
+  }
+};
+module.exports.checkRoleDelChapter = async function (req, res, next) {
+  try {
+    const token = req.headers["authorization"];
+    if (token) {
+      const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const checkRole = await RoleService.getPermission(check.idRole);
+      // đổi id
+      const getPermission = checkRole.listPermissions.filter(
+        (item) => item.idPermissions == "61c20ef215b6ec8e20c3ac74"
+      );
+      console.log(getPermission[0].status);
+      if (getPermission[0].status) {
+        return next();
+      }
+      return res.json({ status: 403, message: "not authorization" });
+    } else {
+      return res.send("not token");
+    }
+  } catch (err) {
+    console.log(err);
+    return res.json({ status: 405, message: "Token verify failed" });
+    // return res.redirect('/users/login')
+  }
+};
