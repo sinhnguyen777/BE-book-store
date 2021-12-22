@@ -3,7 +3,8 @@ const UserService = require("../services/user.service");
 
 module.exports.GetAll = async (req, res, next) => {
   try {
-    const Catalogs = await DiscountCodeService.getAll();
+    const filter = req.query;
+    const Catalogs = await DiscountCodeService.getAll(filter);
 
     return res
       .status(200)
