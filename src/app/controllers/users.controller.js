@@ -20,6 +20,11 @@ exports.AccessToken = async (req, res, next) => {
     const { token } = req.body;
     if (token) {
       const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const filter = {
+        email:check.email
+      };
+      const getUser = await UserService.getAll(filter);
+      check.vip = getUser[0].vip
       if (check.email) {
         res
           .status(200)
