@@ -45,7 +45,7 @@ exports.AccessToken = async (req, res, next) => {
         if(token){
             const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
             if(check.idRole){
-                res.status(200).json({status:200 ,message:"token access"});
+                res.status(200).json({status:200 ,message:"token access",data:check});
             }else {
                 return res.status(401).json({status:401,message:"token expired"});
             }
