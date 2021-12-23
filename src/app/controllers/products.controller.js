@@ -171,6 +171,7 @@ module.exports.delete = async (req, res, next) => {
 module.exports.update = async (req, res, next) => {
   try {
     let value = req.body;
+    console.log(value);
     const imgOld = JSON.parse(value.oldImages);
     if (req.files) {
       value.images = [];

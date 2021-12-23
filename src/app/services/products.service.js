@@ -207,6 +207,7 @@ exports.delete = async (id) => {
 }
 
 exports.update = async (id, values) => {
+    console.log(values);
     const idCatalog = values.idCatalog
     const nameProduct = values.nameProduct
     const price = values.price
@@ -219,6 +220,7 @@ exports.update = async (id, values) => {
     const quantity = values.quantity
     const images = values.images
     const statusDebut = values.statusDebut
+    const dateDebut = values.dateDebut
 
     let newProduct = {
         nameProduct,
@@ -232,6 +234,7 @@ exports.update = async (id, values) => {
         quantity,
         statusDebut,
         images,
+        dateDebut
     }
     return await ProductModel.updateOne({ _id: id }, newProduct)
         .then((res) => res)

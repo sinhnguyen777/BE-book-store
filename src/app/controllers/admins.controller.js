@@ -200,12 +200,15 @@ exports.forgotpassword = async (req, res, next) => {
 module.exports.resetPassword = async (req, res, next) => {
     const token = req.body.token;
     const password = req.body.password;
+    console.log(password);
+
     const jwt = require('jsonwebtoken');
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decode) => {
         if (err) {
             return res.status(401).json({ code: 401, message: "Qúa thời hạn xác thực" })
         } else {
             const add = await AdminService.NewPass(decode.userId, password);
+            console.log(add);
             if (add) {
                 return res.status(200).json({ code: 200, message: "Xác thực thành công" })
             }

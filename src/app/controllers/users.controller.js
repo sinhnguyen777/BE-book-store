@@ -25,13 +25,17 @@ exports.AccessToken = async (req, res, next) => {
         email:check.email
       };
       const getUser = await UserService.getAll(filter);
+      console.log(getUser);
+
       check.vip = getUser[0].vip
       if(req.body.idProduct){
         const filter = {
-          idUser:getUser._id,
+          idUser:getUser[0]._id,
           idProduct:req.body.idProduct
         }
+        console.log(filter);
         const checkCart = await OrderDetailService.getAll(filter);
+        console.log(checkCart);
         if(checkCart.length){
           check.sell = true;
         }else{
