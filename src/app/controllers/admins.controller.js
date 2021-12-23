@@ -44,6 +44,7 @@ exports.AccessToken = async (req, res, next) => {
         
         if(token){
             const check = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+            console.log(check);
             if(check.idRole){
                 res.status(200).json({status:200 ,message:"token access",data:check});
             }else {
